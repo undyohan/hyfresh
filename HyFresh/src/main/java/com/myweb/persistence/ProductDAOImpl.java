@@ -1,6 +1,8 @@
 package com.myweb.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -22,89 +24,89 @@ public class ProductDAOImpl implements ProductDAO {
 	private static String namespace = "ProductMapper.";
 	
 	@Inject
-	SqlSession
+	SqlSession sql;
 
 	@Override
 	public List<ProductVO> getList(Criterion cri, String where) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cri", cri);
+		map.put("where", where);
+		return sql.selectList(namespace+"getList", map);
 	}
 
 	@Override
 	public List<ReviewVO> listReview(int pno) {
-		// TODO Auto-generated method stub
-		return null;
+		return sql.selectList(namespace+"listReview", pno);
 	}
 
 	@Override
 	public int addReview(ReviewVO rvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sql.insert(namespace+"addReview", rvo);
 	}
 
 	@Override
 	public int modifyReview(ReviewVO rvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sql.update(namespace+"modifyReview", rvo);
 	}
 
 	@Override
 	public int deleteReview(ReviewVO rvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sql.delete(namespace+"deleteReview", rvo);
 	}
 
 	@Override
 	public ProductVO getProduct(int pno) {
-		// TODO Auto-generated method stub
-		return null;
+		return sql.selectOne(namespace+"getProduct", pno);
 	}
 
+	
 	@Override
 	public int getTotalCount(Criterion cri, String db) {
-		// TODO Auto-generated method stub
-		return 0;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cri", cri);
+		map.put("db", db);
+		return sql.selectOne(namespace+"getTotalCount", map);
 	}
 
+	
 	@Override
 	public List<ProductVO> listCart(Criterion cri, int mno) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cri", cri);
+		map.put("mno", mno);
+		return sql.selectList(namespace+"listCart", map);
 	}
 
 	@Override
 	public int addCart(CartVO cvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sql.insert(namespace+"addCart", cvo);
 	}
 
 	@Override
 	public int modifyCart(CartVO cvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sql.update(namespace+"modifyCart", cvo);
 	}
 
 	@Override
 	public int deleteCart(CartVO cvo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sql.delete(namespace+"deleteCart", cvo);
 	}
 
 	@Override
 	public List<OrderVO> listOrder(int mno) {
-		// TODO Auto-generated method stub
-		return null;
+		return sql.selectList(namespace+"listOrder", mno);
 	}
 
 	@Override
 	public int insertOrder(OrderVO ovo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sql.insert(namespace+"insertOrder", ovo);
 	}
 
 	@Override
 	public int modifyOrder(OrderVO ovo, int status) {
-		// TODO Auto-generated method stub
-		return 0;
+		Map<String, Object> map = new HashMap<>();
+		map.put("ovo", ovo);
+		map.put("status", status);
+		return sql.update(namespace+"modifyOrder", map);
 	}
 }
