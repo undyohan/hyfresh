@@ -5,7 +5,7 @@
 <!-- Footer -->
 <footer class="py-5 bg-dark">
 	<div class="container">
-		<p class="m-0 text-center text-white">Copyright &copy; Kitae PARK
+		<p class="m-0 text-center text-white">Copyright &copy; 1팀(김희수,송민영,안요한,윤희국,이준우)
 			2020</p>
 	</div>
 	<!-- /.container -->
