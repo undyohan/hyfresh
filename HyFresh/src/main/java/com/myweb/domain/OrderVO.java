@@ -18,4 +18,6 @@ public class OrderVO {
 	private String memo;
 	private String pname;
 	private int img;
+	
+	private int tesths;
 }
