@@ -43,8 +43,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int deleteReview(ReviewVO rvo) {
-		return pdao.deleteReview(rvo);
+	public int deleteReview(int rno) {
+		return pdao.deleteReview(rno);
 	}
 
 	@Override
@@ -53,8 +53,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int getTotalCount(Criterion cri, String db) {
-		return pdao.getTotalCount(cri, db);
+	public int getTotalCount(String count, String db) {
+		return pdao.getTotalCount(count, db);
 	}
 
 	@Override

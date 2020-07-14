@@ -16,7 +16,6 @@ import com.myweb.domain.Criterion;
 import com.myweb.domain.OrderVO;
 import com.myweb.domain.ProductVO;
 import com.myweb.domain.ReviewVO;
-import com.myweb.service.ProductService;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
@@ -50,8 +49,8 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public int deleteReview(ReviewVO rvo) {
-		return sql.delete(namespace+"deleteReview", rvo);
+	public int deleteReview(int rno) {
+		return sql.delete(namespace+"deleteReview", rno);
 	}
 
 	@Override
@@ -61,9 +60,9 @@ public class ProductDAOImpl implements ProductDAO {
 
 	
 	@Override
-	public int getTotalCount(Criterion cri, String db) {
+	public int getTotalCount(String count, String db) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("cri", cri);
+		map.put("count", count);
 		map.put("db", db);
 		return sql.selectOne(namespace+"getTotalCount", map);
 	}

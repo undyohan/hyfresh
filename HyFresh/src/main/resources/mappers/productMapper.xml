@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="ProductMapper">
+  <select id="getList" parameterType="java.util.HashMap" resultType="ProductVO">
+    <![CDATA[
+      select tp.pname, tp.price, tp.custom, tt.tname 
+      from (select /*+INDEX(tbl_product pk_product)*/ 
+        rownum as rn, pname, price, custom, tno
+        from tbl_product 
+        where rownum <= #{cri.pageNum} * #{cri.amount}
+      )
+      as pt join tbl_tag as tt on pt.tno = tt.tno
+      where rn > (#{cri.pageNum} - 1) * #{cri.amount} #{where}
+    ]]>
+  </select>
+  <select id="listReview" parameterType="java.lang.Integer" resultType="ReviewVO">
+    select rate, writer, title, content, img, regd8, modd8 from tbl_review where pno = #{pno}
+  </select>
+  <insert id="addReview" parameterType="ReviewVO">
+    insert into tbl_review (rno, pno, mno, rate, writer, title, content, img, regd8, modd8)
+    values (seq_review_rno.nextval, #{pno}, #{mno}, #{rate}, #{writer}, #{title}, #{content}, #{img}, sysdate, sysdate)
+  </insert>
+  <update id="modifyReview" parameterType="ReviewVO">
+    update tbl_review set rate = #{rate}, title = #{title}, content = #{content}, img = #{img}, modd8 = sysdate)
+    where rno = #{rno}
+  </update>
+  <delete id="deleteReview" parameterType="java.lang.Integer">
+    delete from tbl_review where rno = #{rno}
+  </delete>
+  <select id="getProduct" parameterType="java.lang.Integer" resultType="ProductVO">
+    select * from tbl_product where pno = #{pno}
+  </select>
+  <select id="getTotalCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+      <![CDATA[
+        select count(#{count}) from #{db} where #{count} > 0
+      ]]> 
+  </select>
+</mapper>

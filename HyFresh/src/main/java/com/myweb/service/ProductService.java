@@ -21,12 +21,12 @@ public interface ProductService {
 	// 리뷰 수정
 	public int modifyReview(ReviewVO rvo);
 	// 리뷰 삭제
-	public int deleteReview(ReviewVO rvo);
+	public int deleteReview(String rno);
 	// 상품 상세정보
 	public ProductVO getProduct(int pno);
 
 	// 페이지 수량 체크 - 해당하는 db 이름을 넣어주어서 보냄 예) 리뷰 목록에 사용시 String db = "tbl_review";
-	public int getTotalCount(Criterion cri, String db);
+	public int getTotalCount(String count, String db);
 
 	// 장바구니 목록
 	public List<ProductVO> listCart(Criterion cri, int mno);
