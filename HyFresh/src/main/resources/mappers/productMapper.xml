@@ -6,7 +6,7 @@
   <select id="getList" parameterType="java.util.HashMap" resultType="ProductVO">
     <![CDATA[
       select tp.pname, tp.price, tp.custom, tt.tname 
-      from (select /*+INDEX(tbl_product pk_product)*/ 
+      from (select /*+INDEX(tbl_product pk_product)*/
         rownum as rn, pname, price, custom, tno
         from tbl_product 
         where rownum <= #{cri.pageNum} * #{cri.amount}
