@@ -7,11 +7,25 @@ public class CartVO {
 	private int pno;
 	private int mno;
 	private int qt;
-	private int addrno;
 	private Date getd8;
 	private String pname;
 	private int price;
 	private String img;
+	
+	
+	public CartVO(int pno, int mno, int qt, String pname, int price, String img) {
+		this.pno = pno;
+		this.mno = mno;
+		this.qt = qt;
+		this.pname = pname;
+		this.price = price;
+		this.img = img;
+	}
+	
+	
+	
+	
+	
 	public int getCno() {
 		return cno;
 	}
@@ -36,12 +50,7 @@ public class CartVO {
 	public void setQt(int qt) {
 		this.qt = qt;
 	}
-	public int getAddrno() {
-		return addrno;
-	}
-	public void setAddrno(int addrno) {
-		this.addrno = addrno;
-	}
+	
 	public Date getGetd8() {
 		return getd8;
 	}
