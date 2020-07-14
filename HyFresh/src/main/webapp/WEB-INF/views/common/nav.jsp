@@ -32,8 +32,10 @@
           </c:if>
           <c:if test="${sesInfo ne null }">
           <li class="nav-item">
-            <a class="nav-link" href="/member/detail?email=${sesInfo.email }">${sesInfo.name } (${sesInfo.email })            	
-            </a>
+            <a class="nav-link" href="/member/detail?email=${sesInfo.email }">${sesInfo.name }</a>
+          </li>
+          <li>
+            <a class="nav-link" href="/member/mypage">마이페이지</a>
           </li>
           <c:if test="${sesInfo.email eq 'admin@admin.com' }">
 					  <li class="nav-item">
