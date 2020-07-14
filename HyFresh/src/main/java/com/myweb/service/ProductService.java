@@ -21,7 +21,7 @@ public interface ProductService {
 	// 리뷰 수정
 	public int modifyReview(ReviewVO rvo);
 	// 리뷰 삭제
-	public int deleteReview(String rno);
+	public int deleteReview(int rno);
 	// 상품 상세정보
 	public ProductVO getProduct(int pno);
 
