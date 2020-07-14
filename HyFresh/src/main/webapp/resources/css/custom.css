@@ -3,3 +3,41 @@
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-full-width-pics/blob/master/LICENSE)
  */
+body {
+  padding-top: 56px;
+}
+
+#cmtList ul{
+  border-bottom: 1px solid grey;
+  margin: 5px;
+}
+
+.bg-image-full {
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.detail-img{
+  width: 100%;
+}
+
+.detail-price {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.detail-tit {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.detail-subtit {
+  font-size: 20px;
+  font-weight: bold;
