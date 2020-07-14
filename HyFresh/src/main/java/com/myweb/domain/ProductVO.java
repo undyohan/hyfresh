@@ -19,6 +19,7 @@ public class ProductVO {
 	private int sellcount;
 	private int discount;
 	private String custom;
+	private String test2;
 	
 	public ProductVO() { }
 	public ProductVO(String pname, int price, String content, String img, int stock, int dfee, int discount,
