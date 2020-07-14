@@ -18,9 +18,9 @@
           name="pwd">
       </div>
       <div class="form-group">
-        <label for="nick">Name:</label> <input type="text"
-          class="form-control" id="nick" placeholder="Enter Nick Name"
-          name="nickname">
+        <label for="name">Name:</label> <input type="text"
+          class="form-control" id="name" placeholder="Enter Name"
+          name="name">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
