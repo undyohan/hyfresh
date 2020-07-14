@@ -4,7 +4,7 @@
 
 <!-- Header - set the background image for the header in the line below -->
   <header class="py-5 bg-image-full" style="background-image: url('resources/img/bg1.jpg');">
-    <img class="img-fluid d-block mx-auto" src="resources/img/ryon.gif" alt="" style="width: 175px;">
+    <img class="img-fluid d-block mx-auto" src="resources/img/logo.gif" alt="" style="width: 175px;">
   </header>
 
   <!-- Content section -->
