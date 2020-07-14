@@ -29,6 +29,7 @@ public class ProductCtrl {
 	
 	@GetMapping("/list") 
 	public void list(Model model, Criterion cri) {
+		log.info("asdsadasd");
 		model.addAttribute("pList", psv.getList(cri, ""));
 		int totalCount = psv.getTotalCount("pno", "tbl_product");
 		model.addAttribute("pgvo", new PagingVO(totalCount, cri));
