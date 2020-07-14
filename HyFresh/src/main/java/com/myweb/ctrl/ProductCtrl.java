@@ -29,7 +29,7 @@ public class ProductCtrl {
 	
 	@GetMapping("/list") 
 	public void list(Model model, Criterion cri) {
-		model.addAttribute("pList", psv.getList(cri, "tbl_product"));
+		model.addAttribute("pList", psv.getList(cri, ""));
 		int totalCount = psv.getTotalCount("pno", "tbl_product");
 		model.addAttribute("pgvo", new PagingVO(totalCount, cri));
 	} 
@@ -37,6 +37,8 @@ public class ProductCtrl {
 	@GetMapping("/detail")
 	public void detail(@RequestParam("pno")int pno, Model model, @ModelAttribute("cri")Criterion cri) {
 		ProductVO pvo = psv.getProduct(pno);
+		String custom = pvo.getCustom();
+		List<ProductVO> pList = psv.getList(cri, "and custom = "+ custom);
 		List<ReviewVO> rList = psv.listReview(pno);
 		model.addAttribute("pvo", pvo);
 		model.addAttribute("rList", rList);
