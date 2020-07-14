@@ -33,14 +33,11 @@
           <c:if test="${sesInfo ne null }">
           <li class="nav-item">
             <a class="nav-link" href="/member/detail?email=${sesInfo.email }">${sesInfo.name } (${sesInfo.email })            	
-            </a>&nbsp;&nbsp;
+            </a>
           </li>
           <c:if test="${sesInfo.email eq 'admin@admin.com' }">
-            <li class="nav-item">
-              <a class="nav-link" href="/member/list">회원목록</a>
-					  </li>
 					  <li class="nav-item">
-              <a class="nav-link" href="/admin/">관리자페이지</a>
+              <a class="nav-link btn btn-sm btn-primary" href="/admin/">관리자페이지</a>
             </li>
           </c:if>          
           <li class="nav-item">
