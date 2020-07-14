@@ -32,7 +32,7 @@ public class ProductCtrl {
 		model.addAttribute("pList", psv.getList(cri, "tbl_product"));
 		int totalCount = psv.getTotalCount("pno", "tbl_product");
 		model.addAttribute("pgvo", new PagingVO(totalCount, cri));
-	}
+	} 
 	
 	@GetMapping("/detail")
 	public void detail(@RequestParam("pno")int pno, Model model, @ModelAttribute("cri")Criterion cri) {
