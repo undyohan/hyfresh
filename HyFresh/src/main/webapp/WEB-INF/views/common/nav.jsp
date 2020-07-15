@@ -39,7 +39,7 @@
           </li>
           <c:if test="${sesInfo.email eq 'admin@admin.com' }">
 					  <li class="nav-item">
-              <a class="nav-link btn btn-sm btn-primary" href="/admin/">관리자페이지</a>
+              <a class="nav-link btn btn-sm btn-primary" href="/admin/main">관리자페이지</a>
             </li>
           </c:if>          
           <li class="nav-item">
