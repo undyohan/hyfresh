@@ -23,10 +23,12 @@ public class ProductVO {
 	private String tname;
 	
 	public ProductVO() { }
-	public ProductVO(String pname, int price, String custom, String tname) {
+	public ProductVO(int pno, String pname, int price, String custom, String img, String tname) {
+		this.pno = pno;
 		this.pname = pname;
 		this.price = price;
 		this.custom = custom;
+		this.img = img;
 		this.tname = tname;
 	}
 	public ProductVO(String pname, int price, String content, String img, int stock, int dfee, int discount,

@@ -1,155 +1,89 @@
-<jsp:include page="../common/header.jsp"></jsp:include>
-<jsp:include page="../common/nav.jsp"></jsp:include>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../common/header.jsp"></jsp:include>
+<jsp:include page="../common/nav.jsp"></jsp:include>
 <section class="py-5">
-    <div class="container">
-      <h1>Product Information List</h1>
-      <table class="table table-hover">
-      <tr>
-        <th class="table-info">상품 번호</th>
-        <td>${pvo.pno }</td>
-      </tr>
-      <tr>
-        <th class="table-info">상품명</th>
-        <td>${pvo.title }</td>
-      </tr>
-      <tr>
-        <th class="table-info">등록자</th>
-        <td>${pvo.writer }</td>
-      </tr>
-      <tr>
-        <th class="table-info">상품내용</th>
-        <td>${pvo.content }</td>
-      </tr>
-      <tr>
-        <th class="table-info">조회수</th>
-        <td>${pvo.readcount }</td>
-      </tr>
-      <tr>
-        <th class="table-info">최종수정일</th>
-        <td>${pvo.modd8 }</td>
-      </tr>
-      <tr>
-        <th class="table-info">상품 이미지</th>
-        <td><img src="/images/${pvo.imgfile }" style="width: 50%;"></td>
-      </tr>
-	      <tr>
-	        <th colspan="2">
-	        <a href="/product/list?pageNum=${cri.pageNum }&amount=${cri.amount }&type=${cri.type }&keyword=${cri.keyword }" class="btn btn-success">목록</a>
-	        <c:if test="${sesInfo.email eq pvo.writer }">
-	          <a href="/product/modify?pno=${pvo.pno }&pageNum=${cri.pageNum }&amount=${cri.amount }&type=${cri.type }&keyword=${cri.keyword }" class="btn btn-warning">수정</a>
-	          <a href="/product/remove?pno=${pvo.pno }" class="btn btn-outline-danger" id="delBtn">삭제</a>
-	        </c:if>
-	        </th>
-	      </tr>
-    </table>
-    <form action="/product/remove" id="delForm" method="post">
-      <input type="hidden" name="pno" value="${pvo.pno }">
-      <input type="hidden" name="imgFile" value="${pvo.imgfile }">
-      <input type="hidden" value="${cri.pageNum }" name="pageNum">
-      <input type="hidden" value="${cri.amount }" name="amount">
-      <input type="hidden" value="${cri.type }" name="type">
-      <input type="hidden" value="${cri.keyword }" name="keyword">
+  <div class="container">
+  <div class="container">
+  <div class="btn-group" style="background: url(http://www.hyfresh.co.kr/resources/ko/pc/images/common/con_calendar_gh842353.png) 0 -40px repeat-x;">
+    <button style="background: url(http://www.hyfresh.co.kr/resources/ko/pc/images/common/btnback8315_off.png) 0 0 no-repeat; text-indent: -9999999999em;border: none; width: 62px; height: 67px; margin-top: 29px">뒤로</button>
+    <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px; margin-left: 50px">금<p style="font-size: 30px; margin: 0;">07/17</p></button>
+    <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px;">토<p style="font-size: 30px; margin: 0;">07/18</p></button>
+    <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px;">월<p style="font-size: 30px; margin: 0;">07/20</p></button>
+    <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px;">화<p style="font-size: 30px; margin: 0;">07/21</p></button>
+    <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 50px">수<p style="font-size: 30px; margin: 0;">07/22</p></button>
+    <button style="background: url(http://www.hyfresh.co.kr/resources/ko/pc/images/common/btnnext8315_off.png) 0 0 no-repeat; text-indent: -9999999999em; border: none; width: 62px; height: 67px; margin-top: 29px">앞으로</button>
+  </div>
+</div>
+    <div class="mb-3">
+      <a href="/product/list?pageNum=${cri.pageNum }&amount=${cri.amount}&type=${cri.type}&keyword=${cri.keyword}" class="btn btn-success">상품목록</a>
+    </div>
+    <h3>상품 상세정보</h3>
+    <form action="/product/detail" method="post">
+      <div class="container d-flex">
+        <div class="col-sm-5">
+          <img src="${pvo.img }" class="detail-img">
+        </div>
+        <div class="col-sm-7">
+          <ul style="list-style: none;">
+            <li><hr></li>
+            <li class="detail-tit" style="font-size: 36px;">${pvo.pname }</li>
+            <li class="mb-3" style="background-color: #f2f2f2; border-radius: 0.5em; ">
+            &nbsp; TAG &nbsp; &nbsp; &nbsp; &nbsp;
+	            <c:forEach items="${tList }" var="tag" varStatus="i">
+	             <a href=""> ${tag }</a>
+	            </c:forEach>
+            </li>
+            <li class="mb-3">
+              <span style="font-size: 24px" id="price">${pvo.price }</span>원 
+              <div class="btn-group" style="float:right;">
+							  <button type="button" class="btn btn-primary" style="background-color: white; color: black" id="minus">-</button>
+							  <input type="text" class="btn btn-primary" value="1" size=1 style="background-color: white; color: black" id="num">
+							  <button type="button" class="btn btn-primary" style="background-color: white; color: black" id="plus">+</button>
+						  </div>
+            </li>
+            <li class="mb-3" style="float:right;">
+              <a href="" class="btn btn-secondary">장바구니</a>
+              <a href="" class="btn btn-primary">바로구매</a>
+            </li>
+            <li>
+            
+            </li>
+          </ul>
+        </div>
+      </div>
     </form>
-    <c:if test="${sesInfo.email ne '' }">
-		<div class="input-group mb-3">
-			<input type="text" id="cmtInput" class="form-control" placeholder="댓글을 입력해주세요.">
-			<div class="input-group-append">
-				<button class="btn btn-primary" type="button" id="cmtOkBtn">OK</button>
-				<button class="btn btn-danger" type="button" id="cmtResetBtn">Cancel</button>
-			</div>
-    </div>
-    </c:if>
-    <div id="cmtList">
-      <ul>
-        <li>작성자</li>
-        <li>댓글 내용</li>
-        <li>작성일</li>
-        <li>기능</li>
-      </ul>
-    </div>
-<!-- The Modal -->
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        Modal body..
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" id="modOkBtn" class="btn btn-primary">확인</button>
-      </div>
-
-    </div>
-  </div>
-  </div>
   </div>
 </section>
-<script src="/resources/js/comment.js"></script>
+<jsp:include page="../common/footer.jsp"></jsp:include>
+
 <script>
+
 $(function() {
-	$("#delBtn").on("click", function(e) {
-		e.preventDefault();
-		$("#delForm").submit();
+	$("#minus").on("click", function(e) {
+		e.preventDefault;
+		if($("#num").val() != 0) {
+			let num = $("#num").val() - 1;
+      let price = Number('<c:out value="${pvo.price}"/>') * num;
+      $("#price").text(price);
+			$("#num").val(num);
+			formatChange($("#price").text());
+	}
 	});
-	/* Comment Part */
-	let cmt_writer = '<c:out value="${sesInfo.nickname}"/>';
-    let cmt_pno = '<c:out value="${pvo.pno}"/>';
-    
-    listComment(cmt_pno);
-    
-    $("#cmtOkBtn").on("click",function(){
-      let cmt_content = $("#cmtInput").val();
-      if(cmt_content == null || cmt_content == ''){
-        alert("댓글 내용을 입력해주세요!");
-        return false;
-      }else{
-        let cmtData = {pno:cmt_pno,writer:cmt_writer,content:cmt_content};
-        $.ajax({
-          type: "post",
-          url: "/comment/new",
-          data: JSON.stringify(cmtData),
-          contentType: "application/json; charset:utf-8"
-        }).done(function(result){
-          alert(result);
-          listComment(cmt_pno);
-        });
-      }
-    });
-    $(document).on("click",".modBtn",function(){
-      let parentsUl = $(this).closest("ul");
-      let writer = $(parentsUl).find("li:first-child").text();
-      let content = $(parentsUl).find("li:nth-child(2)").text();
-      let modd8 = $(parentsUl).find("li:nth-child(3)").text();
-      let cno = $(parentsUl).find("li:last-child button:first-child").data("cno");
-      transferToModal(writer,content,modd8,cno);
-    });
-     
-    $(document).on("click","#modOkBtn",function(){
-      let content = $(document).find("#modInput").val();
-      let cno = $(document).find("#modInput").data("cno");
-      modifySubmit(cmt_pno,content,cno);
-      $(document).find(".close").click();
-      });
-    
-    $(document).on("click", ".delBtn", function(){
-    	console.log("dsdsad");
-    	let cno = $(this).data("cno");
-    	removeComment(cno,cmt_pno);
-    });
+	 $("#plus").on("click", function(e) {
+		    e.preventDefault;
+	      let num = Number($("#num").val()) + 1;
+	      $("#num").val(num);
+	      let price = Number('<c:out value="${pvo.price}"/>') * num;
+	      $("#price").text(price);
+	      formatChange($("#price").text());
+	});
 });
+function formatChange(inputNumber){
+	$("#price").text(inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+};
+formatChange('<c:out value="${pvo.price}"/>');
+console.log('<c:out value="${pvo.price}"/>');
 </script>
 
-<jsp:include page="../common/footer.jsp"></jsp:include>

@@ -9,14 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.myweb.domain.ProductVO;
+import com.myweb.persistence.ProductDAO;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class DummyInsert {
 	private static Logger log = LoggerFactory.getLogger(DummyInsert.class);
-	
-	//@Inject
-	//private ProductDAO pdao;
-	
+
+/*	@Inject
+	private ProductDAO pdao;*/
+
 //	@Inject
 //	private CommentDAO cdao;
 //	
@@ -33,11 +36,17 @@ public class DummyInsert {
 //			}
 //		}
 //	}
+
 	
-	/*
-	 * @Test public void insertProductDummy() { for (int i = 0; i < 255; i++) {
-	 * ProductVO pvo = new ProductVO(); pvo.setTitle(i + "번째 상품명");
-	 * pvo.setWriter("admin@admin.com"); pvo.setContent(i+"번째 상품 상세 정보");
-	 * pvo.setPrice(i+10000); pvo.setImgfile("NONE"); pdao.insertProduct(pvo); } }
-	 */
+/*	@Test public void insertProductDummy() { 
+		for (int i = 0; i < 255; i++) {
+			ProductVO pvo = new ProductVO(); 
+			pvo.setPname(i + "번째 상품명");
+			pvo.setContent(i+"번째 상품 상세 정보");
+			pvo.setPrice(i+10000); 
+			pvo.setImg("NONE"); 
+			pdao.insertProduct(pvo); 
+			} 
+		}	 
+	}*/
 }
