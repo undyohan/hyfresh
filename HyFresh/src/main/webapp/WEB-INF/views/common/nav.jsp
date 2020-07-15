@@ -23,12 +23,12 @@
             <a class="nav-link" href="/notice/list">공지목록</a>
           </li>
           <c:if test="${sesInfo eq null }">  
-          <li class="nav-item">
-            <a class="nav-link" href="/member/join">회원가입</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/member/login">로그인</a>
-          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="/member/join">회원가입</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="/member/login">로그인</a>
+	          </li>
           </c:if>
           <c:if test="${sesInfo ne null }">
           <li class="nav-item">

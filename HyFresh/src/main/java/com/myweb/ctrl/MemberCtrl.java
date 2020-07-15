@@ -61,8 +61,7 @@ public class MemberCtrl {
 	}
 	
 	@GetMapping("/login")
-	public void login() {
-	}
+	public void login() {}
 	
 	@PostMapping("/login")
 	public String login(MemberVO mvo, HttpSession ses) {
