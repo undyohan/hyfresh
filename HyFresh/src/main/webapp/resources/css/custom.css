@@ -118,7 +118,7 @@ body {
 .card-signin .card-img-left {
   width: 45%;
   /* Link to your background image using in the property below! */
-  background: scroll center url('../../../resources/img/bg_join.jfif');
+  background: scroll center url('./src/main/webapp/resources/img/bg_join.jfif');
   background-size: cover;
 }
 
