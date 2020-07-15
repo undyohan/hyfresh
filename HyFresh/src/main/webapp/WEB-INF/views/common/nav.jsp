@@ -31,12 +31,20 @@
 	          </li>
           </c:if>
           <c:if test="${sesInfo ne null }">
-          <li class="nav-item">
-            <a class="nav-link" href="/member/detail?email=${sesInfo.email }">${sesInfo.name }</a>
-          </li>
-          <li>
-            <a class="nav-link" href="/member/mypage">마이페이지</a>
-          </li>
+            <li class="nav-item">
+	            <a class="nav-link" href="/member/detail?email=${sesInfo.email }">${sesInfo.name }
+	              <c:choose>
+	                <c:when test="${sesInfo.grade >= 90 }">(관리자)</c:when>
+	                <c:when test="${sesInfo.grade >= 80 }">(매니저)</c:when>
+	                <c:when test="${sesInfo.grade >= 50 }">(VIP)</c:when>
+	                <c:when test="${sesInfo.grade >= 30 }">(GOLD)</c:when>
+	                <c:when test="${sesInfo.grade >= 10 }">(SILVER)</c:when>
+	                <c:otherwise>(FAMILY)</c:otherwise>
+	              </c:choose>
+	            </a>
+	          <li>
+	            <a class="nav-link" href="/member/mypage">마이페이지</a>
+	          </li>
           <c:if test="${sesInfo.email eq 'admin@admin.com' }">
 					  <li class="nav-item">
               <a class="nav-link btn btn-sm btn-primary" href="/admin/main">관리자페이지</a>
