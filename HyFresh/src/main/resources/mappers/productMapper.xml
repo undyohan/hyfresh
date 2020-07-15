@@ -6,13 +6,18 @@
   <select id="getList" parameterType="java.util.HashMap" resultType="ProductVO">
     <![CDATA[
       select tp.pname, tp.price, tp.custom, tt.tname 
-      from (select /*+INDEX(tbl_product pk_product)*/
+      from (select /*+INDEX(tbl_product pk_product)*/ 
         rownum as rn, pname, price, custom, tno
         from tbl_product 
         where rownum <= #{cri.pageNum} * #{cri.amount}
       )
-      as pt join tbl_tag as tt on pt.tno = tt.tno
-      where rn > (#{cri.pageNum} - 1) * #{cri.amount} #{where}
+      tp join tbl_tag tt on tp.tno = tt.tno
+      where rn > (#{cri.pageNum} - 1) * #{cri.amount} ${where}
+    ]]>
+  </select>
+  <select id="total" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <![CDATA[
+      select count(pno) from tbl_product where pno > 0
     ]]>
   </select>
   <select id="listReview" parameterType="java.lang.Integer" resultType="ReviewVO">
@@ -34,7 +39,7 @@
   </select>
   <select id="getTotalCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
       <![CDATA[
-        select count(#{count}) from #{db} where #{count} > 0
+        select count(${count}) from ${db} where ${count} > 0
       ]]> 
   </select>
 </mapper>

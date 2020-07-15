@@ -46,13 +46,12 @@
 		    <tbody>
 		      <c:forEach items="${pList }" var="pvo">
 			      <tr>
-			        <td>${pvo.pno}</td>
-			        <td><a href="/product/detail?pno=${pvo.pno }&pageNum=${pgvo.cri.pageNum }&amount=${pgvo.cri.amount }&type=${pgvo.cri.type }&keyword=${pgvo.cri.keyword }">${pvo.title }</a></td>
-			        <td>${pvo.writer }</td>
-			        <td>${pvo.readcount }</td>
-			        <td>${pvo.modd8 }</td>
+			        <td>${pvo.pname}</td>
+			        <td>${pvo.price}</td>
+			        <td>${pvo.custom}</td>
+			        <td>${pvo.tname }</td>
 			        <td>
-			         <c:if test="${pvo.imgfile ne 'NONE' }">
+			         <c:if test="${pvo.img ne 'NONE' }">
 			           <i class='far fa-file-image'></i>
 			         </c:if>
 			        </td>

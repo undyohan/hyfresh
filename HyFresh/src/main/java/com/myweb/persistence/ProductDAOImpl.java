@@ -64,6 +64,8 @@ public class ProductDAOImpl implements ProductDAO {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("count", count);
 		map.put("db", db);
+		log.info("db: "+map.get("db"));
+		log.info("count: "+map.get("count"));
 		return sql.selectOne(namespace+"getTotalCount", map);
 	}
 
