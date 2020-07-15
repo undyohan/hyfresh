@@ -5,19 +5,19 @@
 <jsp:include page="../common/nav.jsp"></jsp:include>
 <section class="py-5">
   <div class="container">
-  <div class="container">
-  <div class="btn-group" style="background: url(http://www.hyfresh.co.kr/resources/ko/pc/images/common/con_calendar_gh842353.png) 0 -40px repeat-x;">
-    <button style="background: url(http://www.hyfresh.co.kr/resources/ko/pc/images/common/btnback8315_off.png) 0 0 no-repeat; text-indent: -9999999999em;border: none; width: 62px; height: 67px; margin-top: 29px">뒤로</button>
-    <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px; margin-left: 50px">금<p style="font-size: 30px; margin: 0;">07/17</p></button>
-    <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px;">토<p style="font-size: 30px; margin: 0;">07/18</p></button>
-    <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px;">월<p style="font-size: 30px; margin: 0;">07/20</p></button>
-    <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px;">화<p style="font-size: 30px; margin: 0;">07/21</p></button>
-    <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 50px">수<p style="font-size: 30px; margin: 0;">07/22</p></button>
-    <button style="background: url(http://www.hyfresh.co.kr/resources/ko/pc/images/common/btnnext8315_off.png) 0 0 no-repeat; text-indent: -9999999999em; border: none; width: 62px; height: 67px; margin-top: 29px">앞으로</button>
-  </div>
-</div>
     <div class="mb-3">
       <a href="/product/list?pageNum=${cri.pageNum }&amount=${cri.amount}&type=${cri.type}&keyword=${cri.keyword}" class="btn btn-success">상품목록</a>
+    </div>
+    <div style="display: flex; justify-content: center;">
+      <div class="btn-group mt-3" style="background: url(http://www.hyfresh.co.kr/resources/ko/pc/images/common/con_calendar_gh842353.png) 0 -40px repeat-x;">
+        <button style="background: url(http://www.hyfresh.co.kr/resources/ko/pc/images/common/btnback8315_off.png) 0 0 no-repeat; text-indent: -9999999999em;border: none; width: 62px; height: 67px; margin-top: 29px">뒤로</button>
+        <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px; margin-left: 50px">금<p style="font-size: 30px; margin: 0;">07/17</p></button>
+        <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px;">토<p style="font-size: 30px; margin: 0;">07/18</p></button>
+        <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px;">월<p style="font-size: 30px; margin: 0;">07/20</p></button>
+        <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 15px;">화<p style="font-size: 30px; margin: 0;">07/21</p></button>
+        <button type="button" class="btn btn-primary" style="width: 123px; height: 123px; border-radius: 123px; margin-right: 50px">수<p style="font-size: 30px; margin: 0;">07/22</p></button>
+        <button style="background: url(http://www.hyfresh.co.kr/resources/ko/pc/images/common/btnnext8315_off.png) 0 0 no-repeat; text-indent: -9999999999em; border: none; width: 62px; height: 67px; margin-top: 29px">앞으로</button>
+      </div>
     </div>
     <h3>상품 상세정보</h3>
     <form action="/product/detail" method="post">
@@ -46,14 +46,23 @@
             <li class="mb-3" style="float:right;">
               <a href="" class="btn btn-secondary">장바구니</a>
               <a href="" class="btn btn-primary">바로구매</a>
-            </li>
-            <li>
-            
-            </li>
           </ul>
         </div>
       </div>
     </form>
+    <div class="row" style="background-color: #f2f2f2; text-align: center; margin:0; padding: 50px 0;">
+    <p style="font-size: 20px; display:block;">이 제품과 비슷한 제품</p>
+      <c:forEach items="${pList }" var="pvo">
+			  <div class="col-sm-3">
+			    <div class="card" style="background-color: transparent; border: 0; overflow: hidden;">
+				    <img class="card-img-top" src="${pvo.img }" alt="Card image" style="width:50%; margin: 0 auto; border-radius: 100%;">
+				    <div class="card-body" style="padding: 0;">
+				      <h4 class="card-title">${pvo.pname }</h4>
+				      <p class="card-text">${pvo.price }원</p>
+	          </div>
+			    </div>
+	      </div>
+	     </c:forEach>
   </div>
 </section>
 <jsp:include page="../common/footer.jsp"></jsp:include>
