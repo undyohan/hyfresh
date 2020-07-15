@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,13 +32,22 @@ public class MemberCtrl {
 	@Inject
 	MemberService msv;
 	
+	// 패스워드 암호화를 위한 Inject
+//	@Autowired
+//	BCryptPasswordEncoder bcPwdEnc;
+	
 	@GetMapping("/join")
 	public void join() {
 	}
 	
 	@PostMapping("/join")
 	public String join(MemberVO mvo) {
+		// 암호화 없는 메서드
 		int isOk = msv.register(mvo);
+		// 패스워드 암호화
+//		String encPwd = bcPwdEnc.encode(mvo.getPwd());
+//        mvo.setPwd(encPwd);
+//        int isOk = msv.register(mvo);
 		log.debug(">>> isOk : " + isOk);
 		log.debug(isOk==1? "Register Success" : "Register Fail");
 		return "redirect:/";
@@ -55,11 +66,17 @@ public class MemberCtrl {
 	
 	@PostMapping("/login")
 	public String login(MemberVO mvo, HttpSession ses) {
+//		String encPwd = bcPwdEnc.encode(mvo.getPwd());
 		MemberVO mInfo = msv.login(mvo);
-		if (mInfo != null) {
-			ses.setAttribute("mInfo", mInfo);
-			ses.setMaxInactiveInterval(60*30); // 30 mins.
-		}
+		ses.setAttribute("mInfo", mInfo);
+		ses.setMaxInactiveInterval(60*30); // 30 mins.
+//		if (mInfo != null) {
+//			// 암호화 패스워드 매치
+//			if (bcPwdEnc.matches(mvo.getPwd(), encPwd)) {
+//				ses.setAttribute("mInfo", mInfo);
+//				ses.setMaxInactiveInterval(60*30); // 30 mins.
+//			}
+//		}
 		return "redirect:/";
 	}
 	
@@ -107,4 +124,7 @@ public class MemberCtrl {
 		}
 		return redirect;
 	}
+	
+	@GetMapping("/mypage")
+	public void mypage() {}
 }
