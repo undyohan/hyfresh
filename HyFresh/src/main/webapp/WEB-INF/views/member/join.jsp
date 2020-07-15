@@ -16,12 +16,12 @@
 	          <form class="form-signin" action="/member/login" method="post">
 	            <div class="form-label-group">
 	              <input type="text" id="name" class="form-control" placeholder="Username" name="name" required autofocus>
-	              <label for="inputUserame">Name</label>
+	              <label for="name">Name</label>
 	            </div>
 	
 	            <div class="form-label-group">
 	              <input type="email" id="email" class="form-control" placeholder="Email address" name="email" required>
-	              <label for="email">Email address</label>
+	              <label for="email">Email address <span id="chkEmail"></span></label>
 	            </div>
 	            
 	            <hr>
@@ -32,9 +32,12 @@
 	            </div>
 	            
 	            <div class="form-label-group">
-	              <input type="password" id="confirmpwd" class="form-control" placeholder="Password" name="confirmpwd" required>
-	              <label for="confirmpwd">Confirm password</label>
+	              <input type="password" id="confirmPwd" class="form-control" placeholder="Confirm Password" name="confirmPwd" required>
+	              <label for="confirmPwd">Confirm password</label>
 	            </div>
+	            
+	            <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+	            <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
 	
 	            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
 	            <a class="d-block text-center mt-2 small" href="/member/login">Sign In</a>
