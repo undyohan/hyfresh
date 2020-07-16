@@ -9,20 +9,59 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+<<<<<<< HEAD
 import com.myweb.domain.ProductVO;
+=======
+import com.myweb.domain.MemberVO;
+import com.myweb.persistence.MemberDAO;
+>>>>>>> branch 'master' of https://github.com/undyohan/hyfresh.git
 import com.myweb.persistence.ProductDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class DummyInsert {
 	private static Logger log = LoggerFactory.getLogger(DummyInsert.class);
+<<<<<<< HEAD
 
 /*	@Inject
 	private ProductDAO pdao;*/
 
+=======
+	
+	@Inject
+	private ProductDAO pdao;
+	
+	@Inject
+	private MemberDAO mdao;
+	
+>>>>>>> branch 'master' of https://github.com/undyohan/hyfresh.git
 //	@Inject
 //	private CommentDAO cdao;
-//	
+	
+//	@Test
+//	public void insertProductDummy() {
+//		for (int i = 0; i < 255; i++) {
+//			ProductVO pvo = new ProductVO();
+//			pvo.setTitle(i + "번째 상품명");
+//			pvo.setWriter("admin@admin.com");
+//			pvo.setContent(i + "번째 상풍 상세 정보");
+//			pvo.setPrice(i+10000);
+//			pvo.setImgfile("NONE");
+//			pdao.insertProduct(pvo);
+//		}
+//	}
+	
+	@Test
+	public void insertMemberDummy() {
+		for (int i = 0; i < 200; i++) {
+			MemberVO mvo = new MemberVO();
+			mvo.setEmail("test" + i + "@test.com");
+			mvo.setPwd("1234");
+			mvo.setName("TESTER" + i);
+			mdao.insertMember(mvo);
+		}
+	}
+	
 //	@Test
 //	public void insertCommentDummy() {
 //		for (int i = 255; i > 0; i--) {
@@ -36,6 +75,7 @@ public class DummyInsert {
 //			}
 //		}
 //	}
+<<<<<<< HEAD
 
 	
 /*	@Test public void insertProductDummy() { 
@@ -50,3 +90,6 @@ public class DummyInsert {
 		}	 
 	}*/
 }
+=======
+}
+>>>>>>> branch 'master' of https://github.com/undyohan/hyfresh.git

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="../common/header.jsp"></jsp:include>
-<jsp:include page="../common/nav.jsp"></jsp:include>
-<section class="py-5">
+<jsp:include page="../admin/adminheader.jsp"></jsp:include>
+<jsp:include page="../admin/admincommon.jsp"></jsp:include>
+<section class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
   <div class="container">
     <h1>회원목록</h1>
     <div class="float-right form-group">
@@ -31,7 +31,7 @@
         <tr class="table-info">
           <th>회원번호</th>
           <th>Email</th>
-          <th>NickName</th>
+          <th>Name</th>
           <th>Register Date</th>
           <th>수정 / 탈퇴</th>
         </tr>
@@ -75,4 +75,4 @@
     </div>
   </div>
 </section>
-<jsp:include page="../common/footer.jsp"></jsp:include>
+<jsp:include page="../admin/adminfooter.jsp"></jsp:include>
