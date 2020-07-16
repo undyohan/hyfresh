@@ -26,4 +26,10 @@ public class AdminCtrl {
 	@GetMapping("/main")
 	public void main() {
 	}
+	
+	@GetMapping("/mlist")
+	public void mlist() {
+	}
+	
+	
 }

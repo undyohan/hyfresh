@@ -32,7 +32,7 @@
     values(seq_member_mno.nextval,#{email},#{pwd},#{name})
   </insert>
   <select id="check" parameterType="java.lang.String" resultType="java.lang.Integer">
-    select count(email)  from tbl_member where email = #{email}
+    select count(email) from tbl_member where email = #{email}
   </select>
   <select id="login" parameterType="MemberVO" resultType="MemberVO">
     select * from tbl_member where email = #{email} and pwd = #{pwd}
