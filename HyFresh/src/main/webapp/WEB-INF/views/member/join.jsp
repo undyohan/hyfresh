@@ -13,7 +13,7 @@
 	        </div>
 	        <div class="card-body">
 	          <h3 class="card-title text-center">회원가입</h3>
-	          <form class="form-signin" action="/member/login" method="post">
+	          <form class="form-signin" action="/member/join" method="post">
 	            <div class="form-label-group">
 	              <input type="text" id="name" class="form-control" placeholder="Username" name="name" required autofocus>
 	              <label for="name">Name</label>
