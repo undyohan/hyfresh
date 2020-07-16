@@ -9,24 +9,24 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-<<<<<<< HEAD
+
 import com.myweb.domain.ProductVO;
-=======
+
 import com.myweb.domain.MemberVO;
 import com.myweb.persistence.MemberDAO;
->>>>>>> branch 'master' of https://github.com/undyohan/hyfresh.git
+
 import com.myweb.persistence.ProductDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class DummyInsert {
 	private static Logger log = LoggerFactory.getLogger(DummyInsert.class);
-<<<<<<< HEAD
+
 
 /*	@Inject
 	private ProductDAO pdao;*/
 
-=======
+
 	
 	@Inject
 	private ProductDAO pdao;
@@ -34,7 +34,6 @@ public class DummyInsert {
 	@Inject
 	private MemberDAO mdao;
 	
->>>>>>> branch 'master' of https://github.com/undyohan/hyfresh.git
 //	@Inject
 //	private CommentDAO cdao;
 	
@@ -75,7 +74,7 @@ public class DummyInsert {
 //			}
 //		}
 //	}
-<<<<<<< HEAD
+
 
 	
 /*	@Test public void insertProductDummy() { 
@@ -90,6 +89,3 @@ public class DummyInsert {
 		}	 
 	}*/
 }
-=======
-}
->>>>>>> branch 'master' of https://github.com/undyohan/hyfresh.git
