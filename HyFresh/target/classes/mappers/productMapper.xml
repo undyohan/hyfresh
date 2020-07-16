@@ -35,7 +35,8 @@
     delete from tbl_review where rno = #{rno}
   </delete>
   <select id="getProduct" parameterType="java.lang.Integer" resultType="ProductVO">
-    select tp.pno, tp.pname, tp.price, tp.custom, tp.img, tt.tname from tbl_product tp join tbl_tag tt on tp.tno = tt.tno where pno = #{pno}
+    select tp.pno, tp.pname, tp.price, tp.custom, tp.content, tp.img, tp.sellcount, tp.discount, tt.tname 
+    from tbl_product tp join tbl_tag tt on tp.tno = tt.tno where pno = #{pno}
   </select>
   <select id="getTotalCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
       <![CDATA[
