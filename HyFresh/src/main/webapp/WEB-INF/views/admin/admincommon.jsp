@@ -68,11 +68,11 @@
             </a>
             <div class="collapse" id="collapseProduct">
               <div class="card card-body p-2">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/plist">
                   <span data-feather="users"></span>
                   상품 리스트
                 </a>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/pregister">
                   <span data-feather="users"></span>
                   상품등록
                 </a>
@@ -120,15 +120,15 @@
             </a>
             <div class="collapse" id="collapseRequest">
               <div class="card card-body p-2">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/cancellist">
                   <span data-feather="users"></span>
                   취소 리스트
                 </a>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/returnlist">
                   <span data-feather="users"></span>
                   반품 리스트
                 </a>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/exchangelist">
                   <span data-feather="users"></span>
                   교환 리스트
                 </a>

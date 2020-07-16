@@ -31,5 +31,13 @@ public class AdminCtrl {
 	public void mlist() {
 	}
 	
+	@GetMapping("/plist")
+	public void plist() {
+	}
+	
+	@GetMapping("/pregister")
+	public void pregister() {
+	}
+	
 	
 }
