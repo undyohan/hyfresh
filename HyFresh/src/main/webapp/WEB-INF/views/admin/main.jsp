@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../admin/adminheader.jsp"></jsp:include>
 <jsp:include page="../admin/admincommon.jsp"></jsp:include>
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
     <h1 class="h2">쇼핑몰 현황</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group mr-2">
@@ -57,6 +56,5 @@
         
       </tbody>
     </table>
-  </div>
-</main>
+  
 <jsp:include page="../admin/adminfooter.jsp"></jsp:include>

@@ -3,11 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer class="py-5 bg-dark blog-footer">
 	<div class="container">
 		<p class="m-0 text-center text-white">Copyright &copy;
 			1팀(김희수,송민영,안요한,윤희국,이준우) 2020</p>
-	</div>
 	<!-- /.container -->
 </footer>
 
