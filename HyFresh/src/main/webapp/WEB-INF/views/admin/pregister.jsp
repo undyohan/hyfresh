@@ -115,11 +115,3 @@
 </main>
   
 <jsp:include page="../admin/adminfooter.jsp"></jsp:include>
-
-
-  
-</div>
-
-
-  
-<jsp:include page="../admin/adminfooter.jsp"></jsp:include>
