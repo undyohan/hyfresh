@@ -6,6 +6,17 @@
 <div class="container">
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar -->
+		
+		<div class="row row-offcanvas row-offcanvas-left">
+		  <div class="col-12 col-md-9">
+		    
+		  </div>
+		  <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
+		    <div class="list-group">
+		      
+		    </div>
+		  </div>
+	  </div>
 		<div class="bg-light border-right" id="sidebar-wrapper">
 			<div class="list-group list-group-flush">
 			  <div class="list-group-item list-group-item-action bg-dark">마이페이지</div>  

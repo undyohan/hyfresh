@@ -6,25 +6,25 @@
 
 <head>
 
-<meta charset="utf-8">
-<meta name="viewport"
-  content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-<title>Admin Page</title>
+  <title>Admin Page</title>
 
-<!-- Bootstrap core CSS -->
-<link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
-<!-- Bootstrap core JavaScript -->
-<script src="/resources/js/jquery-3.5.1.min.js"></script>
-<script src="/resources/js/popper.min.js"></script>
-<script src="/resources/js/bootstrap.min.js"></script>
-<!-- Custom styles for this template -->
-<link href="/resources/css/dashboard.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap core JavaScript -->
+  <script src="/resources/js/jquery-3.5.1.min.js"></script>
+  <script src="/resources/js/popper.min.js"></script>
+  <script src="/resources/js/bootstrap.min.js"></script>
+  
+  <!-- Custom styles for this template -->
+  <link href="/resources/css/dashboard.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
 </head>
 
-<body>
+<body class="sb-nav-fixed">
