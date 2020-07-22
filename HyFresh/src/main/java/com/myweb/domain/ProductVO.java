@@ -20,17 +20,7 @@ public class ProductVO {
 	private int discount;
 	private String custom;
 	
-	private String tname;
-	
 	public ProductVO() { }
-	public ProductVO(int pno, String pname, int price, String custom, String img, String tname) {
-		this.pno = pno;
-		this.pname = pname;
-		this.price = price;
-		this.custom = custom;
-		this.img = img;
-		this.tname = tname;
-	}
 	public ProductVO(String pname, int price, String content, String img, int stock, int dfee, int discount,
 			String custom) {
 		this.pname = pname;
@@ -157,12 +147,6 @@ public class ProductVO {
 	}
 	public void setCustom(String custom) {
 		this.custom = custom;
-	}
-	public String getTname() {
-		return tname;
-	}
-	public void setTname(String tname) {
-		this.tname = tname;
 	}
 	
 	@Override

@@ -39,9 +39,9 @@
   </select>
   <select id="mlist" parameterType="Criterion" resultType="MemberVO">
     <![CDATA[        
-    select mno,email,name,tel,birth,grade,point,regd8
+    select mno,email,name,home,tel,birth,grade,point,regd8
     from (select /*+INDEX_DESC(tbl_member pk_member)*/ 
-          rownum as rn,mno,email,name,tel,birth,grade,point,regd8
+          rownum as rn,mno,email,name,home,tel,birth,grade,point,regd8
           from tbl_member
           where mno > 0
     ]]>
@@ -51,14 +51,14 @@
     where rn > (#{pageNum}-1) * #{amount}
     ]]>
   </select>
-  <select id="mInfo" parameterType="java.lang.String" resultType="MemberVO">
-    select * from tbl_member where email = #{email}
+  <select id="mInfo" parameterType="java.lang.Integer" resultType="MemberVO">
+    select * from tbl_member where mno = #{mno}
   </select>
   <update id="modify" parameterType="MemberVO">
-    update tbl_member set mno = #{mno}, pwd = #{pwd}, name = #{name}, tel = #{tel}, birth = #{birth} where mno = #{mno}
+    update tbl_member set pwd = #{pwd}, name = #{name}, home = #{home}, tel = #{tel}, birth = #{birth} where mno = #{mno}
   </update>
-  <delete id="resign" parameterType="java.lang.String">
-    delete <include refid="base"/>
+  <delete id="resign" parameterType="java.lang.Integer">
+    update tbl_member set grade= -1 where mno=#{mno} 
   </delete>
   <select id="totalCount" parameterType="Criterion" resultType="java.lang.Integer">
     <![CDATA[
@@ -66,4 +66,7 @@
     ]]> 
     <include refid="search"/>
   </select>
+  <update id="updateAddrno" parameterType="MemberVO">
+    update tbl_member set addrno = #{addrno} where mno = #{mno}
+  </update>
 </mapper>

@@ -40,8 +40,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO getInfo(String email) {
-		return mdao.selectInfo(email);
+	public MemberVO getInfo(int mno) {
+		return mdao.selectInfo(mno);
 	}
 
 	@Override
@@ -50,12 +50,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int resign(String email) {
+	public int updateResign(String email) {
 		return mdao.deleteMember(email);
 	}
 
 	@Override
 	public int getTotalCount(Criterion cri) {
 		return mdao.selectTotalCount(cri);
+	}
+
+	@Override
+	public int chooseaddr(MemberVO mvo) {
+		return mdao.updateAddrno(mvo);
 	}
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminMapper">
+  <insert id="register" parameterType="ProductVO">
+    insert into tbl_product (pno,cateno,mno,tno,pname,price,content,img,stock,dfee,discount,custom)
+    values
+     (seq_product_pno.nextval,#{mno},#{tno},#{pname},#{price},#{content},#{img},#{stock},#{dfee},#{discount},#{custom})
+  </insert>
+  <update id="modifyProduct" parameterType="ProductVO">
+    update tbl_product set rate = #{rate}, title = #{title}, content = #{content}, img = #{img}, modd8 = sysdate)
+    where pno = #{pno}
+  </update>
+  <delete id="removeProduct" parameterType="java.lang.Integer">
+    delete from tbl_product where pno = #{pno}
+  </delete>
+</mapper>

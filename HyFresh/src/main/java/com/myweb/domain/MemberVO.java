@@ -7,9 +7,10 @@ public class MemberVO {
 	private String email;
 	private String pwd;
 	private String name;
+	private String home;
 	private int addrno;
 	private String tel;
-	private Date birth;
+	private String birth;
 	private int grade;
 	private Date regd8;
 	private int point;
@@ -30,14 +31,21 @@ public class MemberVO {
 	}
 	
 	// 수정
-	public MemberVO(String pwd, String name, int addrno, String tel, Date birth) {
+	public MemberVO(String pwd, String name, String home, int addrno, String tel, String birth) {
 		this.pwd = pwd;
 		this.name = name;
+		this.home = home;
 		this.addrno = addrno;
 		this.tel = tel;
 		this.birth = birth;
 	}
-
+	
+	// 기본배송지 설정
+	public MemberVO(int mno, int addrno) {
+		this.mno = mno;
+		this.addrno = addrno;
+	}
+	
 	public int getMno() {
 		return mno;
 	}
@@ -63,6 +71,12 @@ public class MemberVO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getHome() {
+		return home;
+	}
+	public void setHome(String home) {
+		this.home = home;
+	}
 	public int getAddrno() {
 		return addrno;
 	}
@@ -75,10 +89,10 @@ public class MemberVO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 	public int getGrade() {

@@ -41,8 +41,8 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
-	public MemberVO selectInfo(String email) {
-		return sql.selectOne(ns+"mInfo", email);
+	public MemberVO selectInfo(int mno) {
+		return sql.selectOne(ns+"mInfo", mno);
 	}
 
 	@Override
@@ -58,5 +58,10 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public int selectTotalCount(Criterion cri) {
 		return sql.selectOne(ns+"totalCount", cri);
+	}
+
+	@Override
+	public int updateAddrno(MemberVO mvo) {
+		return sql.update(ns+"updateAddrno", mvo);
 	}
 }
