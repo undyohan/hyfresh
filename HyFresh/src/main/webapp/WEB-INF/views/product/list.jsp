@@ -161,5 +161,4 @@
 		</div>
 	</div>
 </section>
->>>>>>> branch 'master' of https://github.com/undyohan/hyfresh.git
 <jsp:include page="../common/footer.jsp"></jsp:include>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminMapper">
+  <sql id="search">
+    <if test="type != null">
+      <trim prefix=" and (" suffix=") ">
+        <choose>
+          <when test="type == 'en'.toString()">
+            email like '%'||#{keyword}||'%' or
+            name like '%'||#{keyword}||'%'
+          </when>
+          <when test="type == 'e'.toString()">
+            email like '%'||#{keyword}||'%'
+          </when>
+          <when test="type == 'n'.toString()">
+            name like '%'||#{keyword}||'%'
+          </when>
+        </choose>
+      </trim>
+    </if>
+  </sql>
+  <select id="mList" parameterType="Criterion" resultType="MemberVO">
+    <![CDATA[
+    select rn, m.mno, m.email, m.name, m.home, m.addrno, a.addr, m.tel, m.birth, m.grade, m.regd8, m.point 
+    from (select /*+INDEX_DESC(tbl_member pk_member)*/ 
+    rownum as rn, mno, email, home, name, addrno, tel, birth, grade, regd8, point
+    from tbl_member
+    where mno > 0 and grade >= 0
+    ]]>
+    <include refid="search"/>
+    <![CDATA[
+    and rownum <= #{pageNum} * #{amount})
+    m left join tbl_address a 
+    on m.addrno = a.addrno
+    where rn > (#{pageNum} - 1) * #{amount}
+    ]]>
+  </select>
+  <select id="resignList" parameterType="Criterion" resultType="MemberVO">
+    <![CDATA[
+    select * from (select /*+INDEX_DESC(tbl_member pk_member)*/ 
+    rownum as rn, mno, email, name, home, addrno, tel, birth, grade, regd8, point
+    from tbl_member
+    where mno > 0 and grade = -1
+    ]]>
+    <include refid="search"/>
+    <![CDATA[
+    and rownum <= #{pageNum} * #{amount})
+    m left join tbl_address a 
+    on m.addrno = a.addrno
+    where rn > (#{pageNum} - 1) * #{amount}
+    ]]>
+  </select>
+  <update id="modifyMember" parameterType="MemberVO">
+    update tbl_member set home=#{home}, tel=#{tel}, birth=#{birth},
+    grade=#{grade}, point=#{point} where mno=#{mno}
+  </update>
+  <update id="modifyMAddr" parameterType="java.util.HashMap">
+    update tbl_address set addr=#{addr} where addrno=#{addrno}
+  </update>
+  <update id="resignMember" parameterType="java.lang.Integer">
+    update tbl_member set grade = -1 where mno=#{mno}
+  </update>
+  <delete id="deleteMember">
+    delete from tbl_member where mno=#{mno}
+  </delete>
+  <insert id="addProduct" parameterType="ProductVO">
+    insert into tbl_product(pno, cateno, mno, tno, pname, price, content,
+    img, stock, dfee, discount, custom)
+    values(seq_product_pno.nextval, #{cateno}, #{mno}, #{tno}, #{pname},
+    #{price}, #{content}, #{img}, #{stock}, #{dfee}, #{discount}, #{custom})
+  </insert>
+  <update id="modifyProduct" parameterType="ProductVO">
+    update tbl_product set cateno=#{cateno}, mno=#{mno}, tno=#{tno}, pname=#{pname},
+    price=#{price}, content=#{content}, img=#{img}, stock=#{stock}, dfee=#{dfee},
+    discount=#{discount}, custom=#{custom}
+  </update>
+  <delete id="removeProduct" parameterType="java.lang.Integer">
+    delete from tbl_product where pno=#{pno}
+  </delete>
+  <select id="pList" parameterType="Criterion" resultType="ProductVO">
+    <![CDATA[
+    select * from (select /*+INDEX_DESC(tbl_product pk_product)*/ 
+    rownum as rn, pno, cateno, mno, tno, pname, price, content, img,
+    regd8, modd8, stock, dfee, readcount, sellcount, discount, custom
+    from tbl_product
+    where pno > 0
+    and rownum <= #{pageNum} * #{amount})
+    where rn > (#{pageNum} - 1) * #{amount}
+    ]]>
+  </select>
+  <select id="detailProduct" parameterType="java.lang.Integer" resultType="ProductVO">
+    select * from tbl_product where pno=#{pno}
+  </select>
+  <select id="totalMCount" parameterType="Criterion" resultType="java.lang.Integer">
+  <![CDATA[
+    select count(mno) from tbl_member where mno > 0 and grade >= 0
+  ]]>
+  <include refid="search"/>
+  </select>
+  <select id="totalResignCount" parameterType="Criterion" resultType="java.lang.Integer">
+  <![CDATA[
+    select count(mno) from tbl_member where mno > 0 and grade = -1
+  ]]>
+  <include refid="search"/>
+  </select>
+  <select id="totalPCount" parameterType="Criterion" resultType="java.lang.Integer">
+  <![CDATA[
+    select count(pno) from tbl_product where pno > 0
+  ]]>
+  </select>
+  <select id="tagList" parameterType="Criterion" resultType="TagVO">
+    select * from tbl_tag
+  </select>
+  <insert id="addCategory" parameterType="CategoryVO">
+    insert into tbl_category values(seq_category_cateno.nextval, #{catename},
+      #{catecode}, #{iconfile})
+  </insert>
+  <select id="cateList" resultType="CategoryVO">
+    select * from tbl_category order by catecode
+  </select>
+  <select id="cateDetail" parameterType="java.lang.Integer"
+    resultType="CategoryVO">
+    select * from tbl_category where cateno=#{cateno}
+  </select>
+  <update id="modifyCategory">
+    update tbl_category set catecode=#{catecode}, catename=#{catename}, 
+    iconfile=#{iconfile} where cateno=#{cateno}
+  </update>
+  <delete id="deleteCategory" parameterType="java.lang.Integer">
+    delete from tbl_category where cateno=#{cateno}
+  </delete>
+  <select id="orderCount" resultType="java.lang.Integer">
+  <![CDATA[
+    select count(ocode) from tbl_order where ocode is not null
+  ]]>
+  </select>
+  <select id="orderSale" resultType="java.lang.Integer">
+    select sum(oprice) from tbl_order
+  </select>
+</mapper>

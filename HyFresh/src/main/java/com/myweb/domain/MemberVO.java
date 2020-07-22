@@ -7,12 +7,16 @@ public class MemberVO {
 	private String email;
 	private String pwd;
 	private String name;
+	private String home;
+	// 기본 배송지 주소 번호
 	private int addrno;
 	private String tel;
-	private Date birth;
+	private String birth;
 	private int grade;
 	private Date regd8;
 	private int point;
+	// 기본 배송지 주소(tbl_address에서 가져온 addr값)
+	private String addr;
 	
 	public MemberVO() {}
 	
@@ -30,12 +34,14 @@ public class MemberVO {
 	}
 	
 	// 수정
-	public MemberVO(String pwd, String name, int addrno, String tel, Date birth) {
-		this.pwd = pwd;
-		this.name = name;
+	public MemberVO(int mno, int addrno, String tel, String birth, int grade,
+			int point) {
+		this.mno = mno;
 		this.addrno = addrno;
 		this.tel = tel;
 		this.birth = birth;
+		this.grade = grade;
+		this.point = point;
 	}
 
 	public int getMno() {
@@ -63,6 +69,15 @@ public class MemberVO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getHome() {
+		return home;
+	}
+
+	public void setHome(String home) {
+		this.home = home;
+	}
+
 	public int getAddrno() {
 		return addrno;
 	}
@@ -75,10 +90,10 @@ public class MemberVO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 	public int getGrade() {
@@ -98,5 +113,12 @@ public class MemberVO {
 	}
 	public void setPoint(int point) {
 		this.point = point;
+	}
+	public String getAddr() {
+		return addr;
+	}
+
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
 }
