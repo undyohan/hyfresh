@@ -4,25 +4,19 @@
 <c:set var="sesInfo" value="${mInfo }" scope="session"/>
 <div class="container">
   <header class="blog-header py-3">
-    <div class="d-flex justify-content-end align-items-center">
+    <div class="d-flex justify-content-end align-items-center mb-2">
       <ul class="nav justify-content-end">
-        <li class="nav-item">
-          <a class="nav-link" href="/product/list">상품목록</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/notice/list">공지목록</a>
-        </li>
         <c:if test="${sesInfo eq null }"> 
 	        <li class="nav-item">
-	          <a class="btn btn-sm btn-secondary" href="/member/join">회원가입</a>
+	          <a class="btn btn-sm btn-secondary m-1" href="/member/join">회원가입</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="btn btn-sm btn-outline-secondary" href="/member/login">로그인</a>
+	          <a class="btn btn-sm btn-outline-secondary m-1" href="/member/login">로그인</a>
 	        </li>
         </c:if>
         <c:if test="${sesInfo ne null }">
           <li class="nav-item">
-            <a class="nav-link" href="/member/detail?email=${sesInfo.email }">${sesInfo.name }
+            <a class="nav-link text-muted" href="/member/modify?mno=${sesInfo.mno }">${sesInfo.name }님
               <c:choose>
                 <c:when test="${sesInfo.grade >= 90 }">(관리자)</c:when>
                 <c:when test="${sesInfo.grade >= 80 }">(매니저)</c:when>
@@ -33,15 +27,15 @@
               </c:choose>
             </a>
           <li>
-            <a class="nav-link" href="/member/mypage">마이페이지</a>
+            <a class="btn btn-sm btn-primary m-1" href="/member/mypage">마이페이지</a>
           </li>
         <c:if test="${sesInfo.email eq 'admin@admin.com' }">
           <li class="nav-item">
-            <a class="nav-link btn btn-sm btn-primary" href="/admin/main">관리자페이지</a>
+            <a class="btn btn-sm btn-secondary m-1" href="/admin/main">관리자페이지</a>
           </li>
         </c:if>          
         <li class="nav-item">
-          <a class="nav-link" href="/member/logout">로그아웃</a>
+          <a class="btn btn-sm btn-outline-secondary m-1" href="/member/logout">로그아웃</a>
         </li>
         </c:if>
       </ul>

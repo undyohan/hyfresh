@@ -35,7 +35,7 @@
     <div class="col-12 col-md-9 mt-4">
       <h3>배송지관리</h3>
       <a href="#" class="btn btn-sm btn-outline-primary" id="addaddr">배송지 추가</a>
-      <div id="showinput">
+      <div id="showinput" class="col-md-7">
 	      <form action="/member/addr" method="post" id="sendmod">
 		      <div class="card">
 		        <div class="col-md-8">
@@ -43,36 +43,36 @@
 				        <input type="hidden" class="form-control" value="${modavo.mno }" name="mno">
 		          </div>
 		        </div>
-		        <div class="col-md-8">
+		        <div class="col-md-12">
 		          <div class="form-group form-inline">
 		            <label for="addrname" class="col-sm-4 control-label">배송지 이름</label>
 		            <input type="text" class="form-control" id="addrname" name="addrname" value="${modavo.addrname }">
 		          </div>
 		        </div>
-		        <div class="col-md-8">
+		        <div class="col-md-12">
 		          <div class="form-group form-inline">
 		            <label for="receiver" class="col-sm-4 control-label">수령인</label>
 		            <input type="text" class="form-control" id="receiver" name="receiver" value="${modavo.receiver }">
 		          </div>
 		        </div>
-		        <div class="col-md-8">
+		        <div class="col-md-12">
 		          <div class="form-group form-inline">
 		            <label for="tel" class="col-sm-4 control-label">연락처</label>
 		            <input type="text" class="form-control" id="tel" name="tel" value="${modavo.tel }">
 		          </div>
 		        </div>
-		        <div class="col-md-8">
+		        <div class="col-md-12">
 		          <div class="form-group form-inline">
 		            <label for="addr" class="col-sm-4 control-label">배송주소</label>
 		            <input type="text" class="form-control" id="addr" name="addr" value="${modavo.addr }">
 		          </div>
 		        </div>
-		        <div class="p-2">
-		         <button type="submit" class="btn btn-sm btn-outline-secondary" id="sendinput">저장</a>
+		        <div class="m-auto">
+		         <button type="submit" class="btn btn-sm btn-outline-secondary m-3" id="sendinput">저장</a>
 			       <!-- <a href="/member/modifyaddr?mno=${avo.mno }&addr=${avo.addrno })"
 			            class="btn btn-sm btn-outline-secondary">수정</a> -->
-		         <button type="button" class="btn btn-sm btn-outline-secondary" id="modaddr">수정</a>
-		         <button type="button" class="btn btn-sm btn-outline-secondary" id="closeinput">닫기</a>
+		         <button type="button" class="btn btn-sm btn-outline-secondary m-3" id="modaddr">수정</a>
+		         <button type="button" class="btn btn-sm btn-secondary m-3" id="closeinput">닫기</a>
 		        </div>
 		      </div>
 	      </form>
@@ -84,13 +84,27 @@
 				      <input type="hidden" class="form-control" id="mno" value="${avo.mno }" name="mno">
 				      <input type="hidden" class="form-control" id="addrno" value="${avo.addrno }" name="addrno">
 							<div class="card mb-3">
-								<div class="card-header text-white bg-secondary d-flex">
+							  <c:choose>
+							   <c:when test="${mvo.addrno eq avo.addrno}">
+									<div class="card-header text-white bg-dark d-flex">
+							   </c:when>
+							   <c:otherwise>
+									<div class="card-header text-white bg-secondary d-flex">
+							   </c:otherwise>
+							  </c:choose>
 								  <div class="mr-auto p-2 custom-control custom-radio">
 								    <!-- <fmt:parseNumber var="i" type = "number" value = "${avo.addrno}" /> -->
 								    [${avo.addrname }] ${avo.receiver } 
 							    </div>
 									<div class="p-2">
-									 <a href="/member/chooseaddr?mno=${avo.mno }&addrno=${avo.addrno}" class="btn btn-sm btn-primary">기본배송지로</a>
+									 <c:choose>
+                    <c:when test="${mvo.addrno ne avo.addrno}">
+									   <a href="/member/chooseaddr?mno=${avo.mno }&addrno=${avo.addrno}" class="btn btn-sm btn-outline-light">기본배송지로</a>
+                    </c:when>
+                    <c:otherwise>
+                      <button type="button" class="btn btn-sm btn-warning">현재 배송지</button>
+                    </c:otherwise>
+                   </c:choose>  
 									 <a href="/member/openmod?mno=${avo.mno }&addrno=${avo.addrno}" class="btn btn-sm btn-light" id="openmod">수정</a>
 									 <a href="/member/removeaddr?mno=${avo.mno }&addrno=${avo.addrno}" class="btn btn-sm btn-light">삭제</a>
 								  </div>
@@ -137,8 +151,10 @@
 	  $("#modaddr")>on(
 			  "click", function() {
 				  $(this).parent().find("#sendmod").submit();
+				  $("#showinput").hide();
+				  $("#sendinput").show();
+          $("#modaddr").hide();
 			  });
-	  $()
 /* 	  $("#chooseAddr").on(
 			  "click", function() {
 				  if ($("input[name='addrno']:checked").val() != ''){
@@ -146,5 +162,10 @@
 				  }
 			  }); */
   });
+/*   $(document).ready(function() {
+	  if ($("#sesAddrno").val() == $("#addrno")) {
+		  $("#addrno").children().find("#cardheader").attr({"class":"card-header text-white bg-dark d-flex"});
+	  }
+	}); */
 </script>
 <jsp:include page="../common/footer.jsp"></jsp:include>

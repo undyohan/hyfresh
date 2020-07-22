@@ -155,6 +155,9 @@ public class MemberCtrl {
 	public void detail(@RequestParam("mno") int mno, Model model) {
 		List<AddrVO> aList = asv.getList(mno);
 		model.addAttribute("aList", aList);
+		MemberVO mvo = msv.getInfo(mno);
+		model.addAttribute("mvo", mvo);
+		log.info(">>> result : " + mno );
 	}
 	
 	// 배송지주소 추가
@@ -199,7 +202,11 @@ public class MemberCtrl {
 	public String chooseaddr(AddrVO avo, Model model) {
 		int mno = avo.getMno();
 		int addrno = avo.getAddrno();
-		msv.chooseaddr(new MemberVO(mno, addrno));
+		MemberVO mvo = new MemberVO(mno, addrno);
+		msv.chooseaddr(mvo);
+		log.info(">>> mvo.getAddrno : " + mvo.getAddrno());
+		model.addAttribute("mvo", mvo);
+		log.info(">>> mvo.getAddrno : " + mvo.getAddrno());
 		return "redirect:/member/addr?mno=" + avo.getMno();
 	}
 }

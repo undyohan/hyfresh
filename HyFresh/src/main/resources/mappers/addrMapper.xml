@@ -19,9 +19,9 @@
     where addrno = #{addrno} and mno = #{mno}
   </update>
   <delete id="remove" parameterType="AddrVO">
-    delete from tbl_address where mno=#{mno} and addrno=#{addrno}
+    delete from tbl_address where mno = #{mno} and addrno = #{addrno}
   </delete>
   <select id="selectOne" parameterType="AddrVO" resultType="AddrVO">
-    select * from tbl_address where mno = #{mno} and addrno = #{addrno}
+    select * from tbl_address where addrno = #{addrno} and mno = #{mno} 
   </select>
 </mapper>
