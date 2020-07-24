@@ -5,19 +5,14 @@
 <mapper namespace="ProductMapper">
   <select id="getList" parameterType="java.util.HashMap" resultType="ProductVO">
     <![CDATA[
-      select tp.pno, tp.pname, tp.price, tp.custom, tp.img, tt.tname 
-      from (select /*+INDEX(tbl_product pk_product)*/ 
-        rownum as rn, pno, pname, price, custom, img, tno
+      select tp.pname, tp.price, tp.custom, tt.tname 
+      from (select /*+INDEX(tbl_product pk_product)*/
+        rownum as rn, pname, price, custom, tno
         from tbl_product 
         where rownum <= #{cri.pageNum} * #{cri.amount}
       )
-      tp join tbl_tag tt on tp.tno = tt.tno
-      where rn > (#{cri.pageNum} - 1) * #{cri.amount} ${where}
-    ]]>
-  </select>
-  <select id="total" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    <![CDATA[
-      select count(pno) from tbl_product where pno > 0
+      as pt join tbl_tag as tt on pt.tno = tt.tno
+      where rn > (#{cri.pageNum} - 1) * #{cri.amount} #{where}
     ]]>
   </select>
   <select id="listReview" parameterType="java.lang.Integer" resultType="ReviewVO">
@@ -35,12 +30,11 @@
     delete from tbl_review where rno = #{rno}
   </delete>
   <select id="getProduct" parameterType="java.lang.Integer" resultType="ProductVO">
-    select tp.pno, tp.pname, tp.price, tp.custom, tp.content, tp.img, tp.sellcount, tp.discount, tt.tname 
-    from tbl_product tp join tbl_tag tt on tp.tno = tt.tno where pno = #{pno}
+    select * from tbl_product where pno = #{pno}
   </select>
   <select id="getTotalCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
       <![CDATA[
-        select count(${count}) from ${db} where ${count} > 0
+        select count(#{count}) from #{db} where #{count} > 0
       ]]> 
   </select>
 </mapper>

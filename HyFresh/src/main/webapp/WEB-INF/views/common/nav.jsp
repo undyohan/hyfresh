@@ -7,16 +7,21 @@
     <div class="d-flex justify-content-end align-items-center mb-2">
       <ul class="nav justify-content-end">
         <c:if test="${sesInfo eq null }"> 
-	        <li class="nav-item">
-	          <a class="btn btn-sm btn-secondary m-1" href="/member/join">회원가입</a>
-	        </li>
-	        <li class="nav-item">
-	          <a class="btn btn-sm btn-outline-secondary m-1" href="/member/login">로그인</a>
-	        </li>
+          <li class="nav-item">
+            <a class="nav-link text-muted navtext" href="/member/join">회원가입</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-muted navtext" href="/member/login">로그인</a>
+          </li>
         </c:if>
         <c:if test="${sesInfo ne null }">
+          <c:if test="${sesInfo.email eq 'admin@admin.com' }">
+	          <li class="nav-item">
+	            <a class="btn btn-sm btn-secondary m-1 adminBtn"  href="/admin/main">관리자페이지</a>
+	          </li>
+	        </c:if>
           <li class="nav-item">
-            <a class="nav-link text-muted" href="/member/modify?mno=${sesInfo.mno }">${sesInfo.name }님
+            <a class="nav-link text-muted navtext" href="/member/modify?mno=${sesInfo.mno }">${sesInfo.name }님
               <c:choose>
                 <c:when test="${sesInfo.grade >= 90 }">(관리자)</c:when>
                 <c:when test="${sesInfo.grade >= 80 }">(매니저)</c:when>
@@ -27,15 +32,10 @@
               </c:choose>
             </a>
           <li>
-            <a class="btn btn-sm btn-primary m-1" href="/member/mypage">마이페이지</a>
+            <a class="nav-link text-muted navtext" href="/member/mypage?mno=${sesInfo.mno }">마이페이지</a>
           </li>
-        <c:if test="${sesInfo.email eq 'admin@admin.com' }">
-          <li class="nav-item">
-            <a class="btn btn-sm btn-secondary m-1" href="/admin/main">관리자페이지</a>
-          </li>
-        </c:if>          
         <li class="nav-item">
-          <a class="btn btn-sm btn-outline-secondary m-1" href="/member/logout">로그아웃</a>
+          <a class="nav-link text-muted navtext" href="/member/logout">로그아웃</a>
         </li>
         </c:if>
       </ul>
@@ -46,35 +46,35 @@
         <a class="text-muted" href="#">Subscribe</a>
       </div>
       <div class="col-4 text-center">
-        <a class="blog-header-logo text-dark" href="/"><img src="/resources/img/brand.png" class="blog-header-logo"></a>
+        <a class="blog-header-logo text-dark" href="/"><img src="/resources/img/brand2.png" class="blog-header-logo"></a>
       </div>
       
       <div class="col-4 d-flex justify-content-end align-items-center">
-				<div class="input-group">
-					<input type="text" class="form-control bg-light border-0 small"
-						placeholder="Search for..." aria-label="Search"
-						aria-describedby="basic-addon2">
-					<div class="input-group-append">
-						<button class="btn btn-primary" type="button">
-							<i class="fas fa-search fa-sm"></i>
-						</button>
-					</div>
-				</div>
-				<!-- Topbar Search -->
-				<!-- <form
-					class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-					<div class="input-group">
-						<input type="text" class="form-control bg-light border-0 small"
-							placeholder="Search for..." aria-label="Search"
-							aria-describedby="basic-addon2">
-						<div class="input-group-append">
-							<button class="btn btn-primary" type="button">
-								<i class="fas fa-search fa-sm"></i>
-							</button>
-						</div>
-					</div>
-				</form> -->
-				
+        <div class="input-group">
+          <input type="text" class="form-control bg-light border-0 small"
+            placeholder="Search for..." aria-label="Search"
+            aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button">
+              <i class="fas fa-search fa-sm"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Topbar Search -->
+        <!-- <form
+          class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <div class="input-group">
+            <input type="text" class="form-control bg-light border-0 small"
+              placeholder="Search for..." aria-label="Search"
+              aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+            </div>
+          </div>
+        </form> -->
+        
       </div>
     </div>
   </header>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="AddrMapper">
+<mapper namespace="AddressMapper">
   <insert id="add" parameterType="AddrVO">
     insert into tbl_address (addrno,mno,addrname,receiver,addr,tel) 
     values(seq_Address_addrno.nextval,#{mno},#{addrname},#{receiver},#{addr},#{tel})

@@ -1,6 +1,6 @@
 package com.myweb.domain;
 
-public class AddrVO {
+public class AddressVO {
 	private int addrno;
 	private int mno;
 	private String addrname;
@@ -8,21 +8,21 @@ public class AddrVO {
 	private String addr;
 	private String tel;
 	
-	public AddrVO() {}
+	public AddressVO() {}
 
 	// list
-	public AddrVO(int mno) {
+	public AddressVO(int mno) {
 		this.mno = mno;
 	}
 
 	// mno, addrno
-	public AddrVO(int addrno, int mno) {
+	public AddressVO(int addrno, int mno) {
 		this.addrno = addrno;
 		this.mno = mno;
 	}
 
 	// update
-	public AddrVO(int addrno, int mno, String addrname, String receiver, String addr, String tel) {
+	public AddressVO(int addrno, int mno, String addrname, String receiver, String addr, String tel) {
 		this.addrno = addrno;
 		this.mno = mno;
 		this.addrname = addrname;

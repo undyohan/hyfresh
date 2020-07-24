@@ -8,19 +8,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.myweb.domain.AddrVO;
+import com.myweb.domain.AddressVO;
 import com.myweb.domain.MemberVO;
-import com.myweb.persistence.AddrDAO;
+import com.myweb.persistence.AddressDAO;
 
 @Service
-public class AddrServiceImpl implements AddrService {
-	private static Logger log = LoggerFactory.getLogger(AddrServiceImpl.class);
+public class AddressServiceImpl implements AddressService {
+	private static Logger log = LoggerFactory.getLogger(AddressServiceImpl.class);
 
 	@Inject
-	AddrDAO adao;
+	AddressDAO adao;
 	
 	@Override
-	public int add(AddrVO avo) {
+	public int add(AddressVO avo) {
 		return adao.insertAddr(avo);
 	}
 
@@ -30,22 +30,22 @@ public class AddrServiceImpl implements AddrService {
 	}
 	
 	@Override
-	public List<AddrVO> getList(int mno) {
+	public List<AddressVO> getList(int mno) {
 		return adao.selectList(mno);
 	}
 
 	@Override
-	public int modify(AddrVO avo) {
+	public int modify(AddressVO avo) {
 		return adao.updateAddr(avo);
 	}
 
 	@Override
-	public int remove(AddrVO avo) {
+	public int remove(AddressVO avo) {
 		return adao.deleteAddr(avo);
 	}
 
 	@Override
-	public int openmod(AddrVO avo) {
+	public int openmod(AddressVO avo) {
 		return adao.selectOne(avo);
 	}
 }

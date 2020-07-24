@@ -13,7 +13,7 @@
 	          <div class="row">
 	            <div class="col-md-9 col-lg-8 mx-auto">
 	              <h3 class="login-heading mb-4">로그인</h3>
-	              <form action="/member/login" method="post">
+	              <form action="/member/login" method="post" class="form-signin">
 	                <div class="form-label-group">
 	                  <input type="email" id="email" class="form-control" placeholder="Email address" name="email" required autofocus>
 	                  <label for="email">Email address<span id="chkEmail"></span></label>
@@ -25,15 +25,23 @@
 	
 	                <div class="custom-control custom-checkbox mb-3">
 	                  <input type="checkbox" class="custom-control-input" id="idSaveCheck">
-	                  <label class="custom-control-label" for="idSaveCheck">Remember Email</label>
+	                  <label class="custom-control-label" for="idSaveCheck">Email 기억하기</label>
 	                </div>
-	                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
+	                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">로그인</button>
 	                <div class="text-center">
-	                  <a class="small" href="#">Forgot password?</a>
+	                  <a class="small" href="#">비밀번호 찾기</a>
                   </div>
                   <hr class="my-4">
 		              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
-		              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+		              <!-- <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> -->
+		              <button class="btn btn-lg btn-naver btn-block text-uppercase" type="submit">N &nbsp; Sign in with Naver</button>
+		              <button class="btn btn-lg btn-kakao btn-block text-uppercase" type="submit"><i class="fab fa-kaggle mr-2"></i> Sign in with Kakaotalk</button>
+		              <div class="mt-2">
+			              <a id="login-form-btn" href="javascript:loginFormWithKakao()">
+		   							  <img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" width="222"/>
+	  								</a>
+									  <p id="login-form-result"></p>
+		              </div>
 	              </form>
 	            </div>
 	          </div>

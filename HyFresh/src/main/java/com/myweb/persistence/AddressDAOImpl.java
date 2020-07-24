@@ -9,19 +9,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.myweb.domain.AddrVO;
+import com.myweb.domain.AddressVO;
 import com.myweb.domain.MemberVO;
 
 @Repository
-public class AddrDAOImpl implements AddrDAO{
-	private static Logger log = LoggerFactory.getLogger(AddrDAOImpl.class);
-	private static String ns = "AddrMapper.";
+public class AddressDAOImpl implements AddressDAO{
+	private static Logger log = LoggerFactory.getLogger(AddressDAOImpl.class);
+	private static String ns = "AddressMapper.";
 	
 	@Inject
 	SqlSession sql;
 
 	@Override
-	public int insertAddr(AddrVO avo) {
+	public int insertAddr(AddressVO avo) {
 		return sql.insert(ns+"add", avo);
 	}
 
@@ -31,22 +31,22 @@ public class AddrDAOImpl implements AddrDAO{
 	}
 	
 	@Override
-	public List<AddrVO> selectList(int mno) {
+	public List<AddressVO> selectList(int mno) {
 		return sql.selectList(ns+"alist", mno);
 	}
 
 	@Override
-	public int updateAddr(AddrVO avo) {
+	public int updateAddr(AddressVO avo) {
 		return sql.update(ns+"modify", avo);
 	}
 
 	@Override
-	public int deleteAddr(AddrVO avo) {
+	public int deleteAddr(AddressVO avo) {
 		return sql.delete(ns+"remove", avo);
 	}
 
 	@Override
-	public int selectOne(AddrVO avo) {
+	public int selectOne(AddressVO avo) {
 		return sql.selectOne(ns+"selectOne", avo);
 	}
 
