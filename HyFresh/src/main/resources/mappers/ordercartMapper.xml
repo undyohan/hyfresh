@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrderCartMapper">
+
+
+
+   <!--카트 -->
+  <!-- 카트 상품 수 -->
+  <select id="getCartQt" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+    select count(cno) from tbl_cart where email = #{email} or email=#{guest}
+  </select>
+
+   <insert id="addCart">
+      INSERT INTO tbl_cart
+      values(seq_cart_cno.nextval,#{pno},#{email},#{qt},TO_date(#{getd8}))
+   </insert>
+
+   <select id="chkCart" parameterType="CartVO"
+      resultType="java.lang.Integer">
+      SELECT count(cno) FROM TBL_CART WHERE email=#{email} and
+      pno=#{pno}
+      and getd8=TO_DATE(#{getd8})
+   </select>
+
+   <update id="addCartQt">
+      UPDATE TBL_CART SET qt=qt+#{qt} WHERE email=#{email}
+      and pno=#{pno} and
+      getd8=TO_DATE(#{getd8})
+   </update>
+
+   <select id="listCart" parameterType="java.util.HashMap"
+      resultType="CartVO">
+      SELECT
+      c.cno,p.pno,p.pname,p.PRICE,p.img,c.QT,p.discount,c.getd8,p.dfee
+      FROM
+      TBL_CART c INNER JOIN TBL_PRODUCT p
+      ON c.pno = p.pno WHERE c.email
+      =#{email} or email=#{guest}
+   </select>
+
+   <select id="stockChk" parameterType="java.lang.Integer"
+      resultType="java.lang.Integer">
+      SELECT stock FROM TBL_PRODUCT WHERE pno=#{pno}
+   </select>
+
+   <update id="modQt">
+      UPDATE TBL_CART SET qt=#{qt} WHERE pno=#{pno}
+   </update>
+   <update id="modDate">
+      UPDATE TBL_CART SET getd8=TO_date(#{getd8}) WHERE
+      cno=#{cno}
+   </update>
+
+
+   <delete id="rmCart">
+      delete tbl_cart where cno=#{cno}
+   </delete>
+
+   <!--주문 -->
+
+   <insert id="addOrder">
+      insert into tbl_order
+      (ocode,mno,oprice,memo,discount,point,dfee,receiver,zipcode,addr,tel)
+      values(#{ocode},#{mno},#{oprice},#{memo},#{discount},#{point},#{dfee},#{receiver},#{zipcode},#{addr},#{tel})
+   </insert>
+
+   <sql id="status">
+      <if test="status != 99">
+         and status=#{status}
+      </if>
+   </sql>
+
+   <select id="listOrder" parameterType="java.util.HashMap"
+      resultType="OrderListVo">
+         <![CDATA[
+        SELECT * from
+        (SELECT *FROM 
+         (SELECT 
+        ROWNUM AS rn ,p.pno,p.IMG,
+        o.OCODE, o.receiver,o.zipcode,o.addr,o.tel,o.ORDERD8,o.dfee,
+        od.odno,od.PNAME,od.PRICE,od.rno,
+        od.qt,od.STATUS,od.SENDD8,od.DELIVERD8 
+        FROM TBL_ORDER o 
+        INNER JOIN TBL_ORDERDETAIL od
+        ON o.OCODE = od.OCODE  
+        INNER JOIN TBL_PRODUCT p
+        ON od.PNO = p.PNO
+       WHERE o.mno=#{mno} 
+       AND O.ORDERD8 BETWEEN add_months(${month}) AND add_months(${month}+1)
+       ]]>
+      <include refid="status" />
+       <![CDATA[   
+       ORDER BY orderd8 desc) oo
+      where rn<= #{cri.pageNum} * #{cri.amount})
+      WHERE rn > (#{cri.pageNum}-1)* #{cri.amount}
+      ]]>
+   </select>
+
+
+   <select id="totalCount" parameterType="java.util.HashMap"
+      resultType="java.lang.Integer">
+      select count(o.ocode) from TBL_ORDER o join TBL_ORDERDETAIL od ON
+      o.OCODE=od.OCODE where mno=#{mno} AND ORDERD8 BETWEEN
+      add_months(${month}) AND add_months(${month}+1)
+      <include refid="status" />
+
+   </select>
+
+   <select id="orderInfo" parameterType="java.lang.String"
+      resultType="OrderVo">
+      SELECT * FROM TBL_ORDER WHERE OCODE=#{ocode}
+   </select>
+
+
+   <!-- 구매상품정보 => 주문하기이동 -->
+   <select id="basketOrder" parameterType="CartVO"
+      resultType="CartVO">
+      SELECT
+      c.cno,c.getd8,p.pno,p.pname,p.PRICE,p.img,c.QT,p.discount
+      FROM TBL_CART
+      c INNER JOIN TBL_PRODUCT p
+      ON c.pno = p.pno WHERE c.cno=#{cno}
+   </select>
+
+   <!--구매후 재고감소,판매갯수증가 -->
+   <update id="sellCount" parameterType="java.util.HashMap">
+      UPDATE TBL_PRODUCT SET
+      SELLCOUNT =SELLCOUNT+#{qt},STOCK=STOCK-#{qt} WHERE
+      pno=#{pno}
+   </update>
+
+   <!--구매후 적립금 소모 & 적립 -->
+   <update id="point" parameterType="java.util.HashMap">
+      UPDATE TBL_MEMBER SET
+      point=point-#{point}+(#{oprice}*0.1) WHERE mno=#{mno}
+   </update>
+   <select id="showPoint" parameterType="java.lang.Integer"
+      resultType="java.lang.Integer">
+      select point from tbl_member where mno=#{mno}
+   </select>
+
+   <select id="getAddress" parameterType="java.lang.Integer"
+      resultType="AddressVO">
+      SELECT * FROM TBL_ADDRESS WHERE addrno=#{addrno}
+   </select>
+   
+   <update id="modPlace" parameterType="OrderListVo">
+   UPDATE TBL_ORDER SET receiver=#{receiver} ,addr=#{addr },  tel=#{tel} , zipcode=#{zipcode} where ocode=#{ocode}
+   </update>
+
+   <!--주문 상세 -->
+
+   <insert id="addDetail">
+      insert into TBL_ORDERDETAIL (ODNO , OCODE ,
+      pno,pname,price, qt,deliverd8)
+      values(SEQ_ORDERDETAIL_ODNO.nextval,
+      #{ocode},#{pno},#{pname},#{price},#{qt},TO_DATE(#{deliverd8},'yyyy/MM/dd
+      hh24:mi:ss'))
+   </insert>
+
+   <insert id="addDirect">
+      insert into TBL_ORDERDETAIL (ODNO , OCODE , pno, qt)
+      values ( SEQ_ORDERDETAIL_ODNO.nextval,#{ocode},#{pno},#{qt})
+   </insert>
+
+   <select id="listDetail" parameterType="OrderListVo"
+      resultType="OrderListVo">
+      SELECT p.IMG,p.pno,
+      o.OCODE,
+      o.receiver,o.zipcode,o.addr,o.tel,o.ORDERD8,o.MEMO,o.oprice,
+      o.discount,o.point,o.dfee,
+      od.odno,od.PNAME,od.PRICE,
+      od.qt,od.STATUS,od.SENDD8,od.DELIVERD8,od.rno
+      FROM TBL_ORDER o
+      INNER
+      JOIN TBL_ORDERDETAIL od
+      ON o.OCODE = od.OCODE
+      INNER JOIN TBL_PRODUCT p
+      ON od.PNO = p.PNO
+      WHERE o.ocode=#{ocode}
+   </select>
+
+
+
+   <!--관리자 메뉴 -->
+
+   <update id="modStatus">
+      update TBL_ORDERDETAIL set status=#{status} where
+      odno=#{odno}
+   </update>
+
+   <select id="All_listOrder" parameterType="java.util.HashMap"
+      resultType="OrderListVo">
+         <![CDATA[
+        SELECT * from
+        (SELECT *FROM 
+         (SELECT 
+        ROWNUM AS rn ,p.pno,p.IMG,
+        o.OCODE, o.receiver,o.zipcode,o.addr,o.tel,o.ORDERD8,o.dfee,
+        od.odno,od.PNAME,od.PRICE,od.rno,
+        od.qt,od.STATUS,od.SENDD8,od.DELIVERD8 
+        FROM TBL_ORDER o 
+        INNER JOIN TBL_ORDERDETAIL od
+        ON o.OCODE = od.OCODE  
+        INNER JOIN TBL_PRODUCT p
+        ON od.PNO = p.PNO
+       WHERE O.ORDERD8 BETWEEN add_months(${month}) AND add_months(${month}+1)
+       ORDER BY orderd8 desc) oo
+      where rn<= #{cri.pageNum} * #{cri.amount})
+      WHERE rn > (#{cri.pageNum}-1)* #{cri.amount}
+      ]]>
+   </select>
+
+   <select id="status_listOrder" parameterType="java.util.HashMap"
+      resultType="OrderListVo">
+         <![CDATA[
+        SELECT * from
+        (SELECT *FROM 
+         (SELECT 
+        ROWNUM AS rn ,p.pno,p.IMG,
+        o.OCODE, o.receiver,o.zipcode,o.addr,o.tel,o.ORDERD8,o.dfee,
+        od.odno,od.PNAME,od.PRICE,od.rno,
+        od.qt,od.STATUS,od.SENDD8,od.DELIVERD8 
+        FROM TBL_ORDER o 
+        INNER JOIN TBL_ORDERDETAIL od
+        ON o.OCODE = od.OCODE  
+        INNER JOIN TBL_PRODUCT p
+        ON od.PNO = p.PNO
+       WHERE od.status=#{status} 
+       and O.ORDERD8 BETWEEN add_months(${month}) AND add_months(${month}+1)
+       ORDER BY orderd8 desc) oo
+      where rn<= #{cri.pageNum} * #{cri.amount})
+      WHERE rn > (#{cri.pageNum}-1)* #{cri.amount}
+      ]]>
+   </select>
+
+</mapper>

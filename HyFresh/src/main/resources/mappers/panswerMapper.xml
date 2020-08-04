@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PAnswerMapper">
+<insert id="write" parameterType="PAnswerVO">
+insert into tbl_panswer(pano, pqno, writer, content)
+values(seq_panswer_pano.nextval, #{pqno}, #{writer},#{content})
+</insert>
+<select id="list" resultType="PAnswerVO">
+select pqno, pano, writer, content, regd8 from
+tbl_panswer where pqno=#{pqno} order by pano desc
+</select>
+<delete id="remove" parameterType="java.lang.Integer">
+delete from tbl_panswer where pano=#{pano}
+</delete>
+
+</mapper>

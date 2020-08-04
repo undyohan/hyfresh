@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QuestionMapper">
+	<insert id="write" parameterType="questionVO">
+		insert into tbl_question (qno, writer, title, content, img)
+		values(seq_question_qno.nextval, #{writer}, #{title}, #{content},
+		#{img})
+	</insert>
+	<select id="list" parameterType="Criterion"
+		resultType="questionVO">
+<![CDATA[
+  select qno, title, regd8, writer, img
+  from(select /*+INDEX_DESC(tbl_question pk_question)*/
+    rownum as rn, qno, title, regd8, writer, img
+    from tbl_question
+    where rownum <= #{pageNum}*#{amount})
+   where rn>(#{pageNum}-1)*#{amount}
+]]>
+	</select>
+	<select id="slist" parameterType="Criterion"
+		resultType="questionVO">
+ SELECT tq.qno
+FROM (select /*+INDEX_DESC(tbl_question pk_question)*/
+rownum as rn, qno
+from TBL_QUESTION) tq 
+right OUTER JOIN TBL_ANSWER ta
+ ON tq.qno = ta.qno
+	</select>
+	<select id="detail" parameterType="java.lang.Integer"
+		resultType="questionVO">
+		select * from tbl_question where qno=#{qno}
+	</select>
+	<delete id="remove" parameterType="java.lang.Integer">
+		delete from tbl_question where qno=#{qno}
+	</delete>
+	<select id="totalCount" resultType="java.lang.Integer">
+		select count(qno) from tbl_question
+	</select>
+</mapper>

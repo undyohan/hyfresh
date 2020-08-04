@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AnswerMapper">
+<insert id="write" parameterType="AnswerVO">
+insert into tbl_answer(ano, qno, writer, content)
+values(seq_answer_ano.nextval, #{qno}, #{writer}, #{content})
+</insert>
+<select id="list" resultType="AnswerVO">
+select ano, qno, content, writer, regd8 from
+  tbl_answer where qno=#{qno} order by ano desc
+</select>
+<delete id="remove" parameterType="java.lang.Integer">
+delete from tbl_answer where ano=#{ano}
+</delete>
+
+</mapper>

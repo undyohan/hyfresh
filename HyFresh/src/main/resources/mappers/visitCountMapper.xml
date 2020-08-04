@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="VisitCountMapper">
+  <insert id="insert" parameterType="VisitCountVO">
+    insert into tbl_visitor (vno,ip,visit_time,visit_refer,visit_agent)
+    values (seq_visitor_vno.nextval,#{ip},#{visit_time},#{visit_refer},#{visit_agent})
+   </insert>
+</mapper>

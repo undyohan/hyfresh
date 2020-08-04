@@ -1,0 +1,268 @@
+@charset "UTF-8";
+
+ul {
+  list-style: none;
+}
+
+.s0 {
+    background: url(../img/ico_starss0.png) 0% 0% no-repeat;
+    width: 119px;
+    height: 22px;
+    background-size: 119px 22px;
+}
+.s1 {
+    background: url(../img/ico_starss1.png) 0% 0% no-repeat;
+    width: 119px;
+    height: 22px;
+    background-size: 119px 22px;
+}
+.s2 {
+    background: url(../img/ico_starss2.png) 0% 0% no-repeat;
+    width: 119px;
+    height: 22px;
+    background-size: 119px 22px;
+}
+.s3 {
+    background: url(../img/ico_starss3.png) 0% 0% no-repeat;
+    width: 119px;
+    height: 22px;
+    background-size: 119px 22px;
+}
+.s4 {
+    background: url(../img/ico_starss4.png) 0% 0% no-repeat;
+    width: 119px;
+    height: 22px;
+    background-size: 119px 22px;
+}
+.s5 {
+    background: url(../img/ico_starss5.png) 0% 0% no-repeat;
+    width: 119px;
+    height: 22px;
+    background-size: 119px 22px;
+}
+
+.deliverP {
+	 text-align:center;
+}
+
+.deliver-wrap {
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+}
+
+.deliver-bg {
+	 background: url(http://www.hyfresh.co.kr/resources/ko/pc/images/common/con_calendar_gh842353.png) 0 -40px repeat-x;
+}
+
+.deliver-btn {
+	width: 7rem; 
+	height: 7rem; 
+	border-radius: 123px !important;
+	margin: 0 15px 0 15px !important; 
+	background-color: #009edb !important;
+  border-color: #009edb !important;
+}
+
+.active {
+	color: #009edb !important;
+  background-color: #fff !important;
+}
+
+.active-custom {
+	color: #666666 !important;
+	font-weight:bold;
+	border-left: 2px solid #555657 !important;
+  border-top: 2px solid #555657 !important;
+  border-right: 2px solid #555657 !important;
+  border-bottom: 0px solid #555657 !important;
+}
+
+.deliver-p {
+	font-size: 30px;
+	margin: 0;
+}
+
+.detail-tit {
+	font-size: 36px;
+}
+
+.tag-bg {
+	width: 100%;
+	background-color: #f2f2f2; 
+	border-radius: 0.5em;
+	display: inline-block;
+}
+
+.tag-span {
+	font-size: 10px; 
+	line-height: 24px; 
+	font-weight: bold; 
+	background-color:#b3b3b3; 
+	margin: 0 10px; 
+	border-radius: 0.5em; 
+	color: white; 
+	padding: 0 5px; 
+	text-align: center;
+}
+
+.tag {
+	font-size: 0.8rem;
+	margin-right: 1rem;
+}
+
+.blank {
+	height:5px;
+}
+
+.blank-10 {
+	height:10px
+}
+
+.blank-15 {
+	height:15px
+}
+.discount {
+	border: 3px solid #b3b3b3; 
+	padding: 25px
+}
+
+.d-price {
+	text-decoration:line-through; 
+	color: #b3b3b3; 
+	margin: 0; 
+	font-size: 16px;
+}
+
+.o-price {
+	font-size: 24px;
+	color: #323232; 
+}
+
+.qt-wrap {
+	float:right;
+}
+
+.plus-minus-btn {
+	background-color: #f2f2f2 !important;
+	font-weight: bold !important;
+	color: #323232 !important;
+	border: 1px solid #ccc !important;
+}
+
+.qt-input {
+	background-color: #ffffff !important;
+	color: #323232 !important;
+	border: 1px solid #ccc !important;
+}
+
+.deliver-info {
+	color: #24b5eb;
+}
+
+.deliver-info2 {
+  color: #898989;
+}
+
+.sellCount {
+	font-weight: bold;
+}
+
+.cart-buy-btn {
+	padding: 10px 4.2rem !important;
+}
+
+.reco-div {
+	background-color: #f2f2f2 !important;
+	text-align: center !important;
+	margin: 30px 0 !important;
+	padding: 50px 85px !important;
+}
+
+.reco-p {
+	text-align: left;
+	margin-left: 2rem;
+	font-weight:bold;
+}
+.reco-card-div {
+	background-color: transparent !important;
+	border: 0 !important;
+	overflow: hidden !important;
+}
+
+.reco-card-img {
+	width:40% !important; 
+	margin: 0 auto !important; 
+  border-radius: 100% !important;
+}
+
+.reco-card-body {
+	padding: 0 !important;
+}
+
+.reco-card-tit {
+	font-size: 0.9rem !important;
+}
+.menuDiv {
+	position: sticky !important; 
+  top: 0 !important;
+  background-color: white !important;
+}
+
+.nav-custom {
+	border-bottom: 2px solid #555657 !important;
+	background-color: #f2f2f2;
+	color: #666666 !important;
+}
+
+.content {
+	width: 100%;
+	margin-top: 50px !important;
+	text-align: center;
+}
+.review-p {
+  text-align: center;
+  margin: 0;
+  font-size: 24px
+}
+
+.review-average {
+	display: flex;
+	justify-content: center;
+	height: 41px;
+}
+
+.review-average-txt {
+	margin-left: 5px;
+	text-align: center;
+	font-size: 41px;
+	line-height: 41px;
+}
+
+.review-all {
+	color: #24b5eb;
+}
+
+.staticDiv {
+	position: static !important;
+}
+
+.review-paging-div {
+	display: flex !important;
+	justify-content: center !important;
+}
+
+.deliver-info-table {
+	border-collapse: initial !important;
+}
+.deliver-info-p {
+	font-size:0.8rem;
+}
+
+.btn_top {
+	position: fixed;
+	right: 1%;
+  bottom: -10px;
+  width: 60px;
+  height: 60px;
+}

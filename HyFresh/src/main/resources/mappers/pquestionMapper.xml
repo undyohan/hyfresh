@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PQuestionMapper">
+	<insert id="write" parameterType="pquestionVO">
+		insert into tbl_pquestion (pqno, pno, writer, isLock, title, content)
+		values(seq_pquestion_pqno.nextval,#{pno}, #{writer}, #{isLock},
+		#{title}, #{content})
+	</insert>
+
+	<select id="list" parameterType="java.util.HashMap" resultType="pquestionVO">
+	<![CDATA[
+		select pqno, writer, title, isLock, regd8, pno, content
+		from (select /*+INDEX_DESC(tbl_pquestion pk_pquestion)*/
+		rownum as rn, pqno, writer, title, isLock, regd8 , pno, content
+		from tbl_pquestion where pno=#{pno} 
+		and rownum <= #{cri.pageNum}*#{cri.amount})
+    where rn > (#{cri.pageNum}-1)*#{cri.amount}
+		]]>
+	</select>
+   <select id="slist" parameterType="Criterion"
+    resultType="pquestionVO">
+ SELECT tpq.pqno
+FROM (select /*+INDEX_DESC(tbl_pquestion pk_pquestion)*/
+rownum as rn, pqno
+from TBL_PQUESTION) tpq 
+right OUTER JOIN TBL_PANSWER tpa
+ ON tpq.pqno = tpa.pqno
+  </select>
+	<select id="detail" parameterType="java.lang.Integer"
+		resultType="pquestionVO">
+		select * from tbl_pquestion where pqno=#{pqno}
+	</select>
+	<delete id="remove" parameterType="java.lang.Integer">
+		delete from tbl_pquestion where pqno=#{pqno}
+	</delete>
+	<select id="total" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(pqno) from tbl_pquestion where pno=#{pno}
+</select>
+</mapper>
