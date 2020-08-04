@@ -11,5 +11,6 @@ public interface AddressDAO {
 	public List<AddressVO> selectList(int mno);
 	public int updateAddr(AddressVO avo);
 	public int deleteAddr(AddressVO avo);
-	public int selectOne(AddressVO avo);
+	public AddressVO selectOne(AddressVO avo);
+	public int getFirstAddrno(int mno);
 }

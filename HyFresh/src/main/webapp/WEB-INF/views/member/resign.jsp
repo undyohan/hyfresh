@@ -47,7 +47,7 @@
 	        <div class="mt-1"></div>
 	        <span class="mx-auto">탈퇴하시면 보유한 포인트는 소멸됩니다. 그래도 진행할까요?</span>
 	        <div class="mt-5 mb-5 mx-auto">
-	          <a href="/member/resign?email=${sesInfo.email }&ses=${sesInfo.email}" class="btn btn-light mr-3 pl-4 pr-4">예 / 탈퇴</a>
+	          <a href="/member/updateResign?mno=${sesInfo.mno }&ses=${sesInfo.email}" class="btn btn-light mr-3 pl-4 pr-4">예 / 탈퇴</a>
 	          <a href="/member/mypage?mno=${sesInfo.mno }" class="btn btn-light ml-3 pl-4 pr-4">아니오</a>
 	        </div>
         </div>

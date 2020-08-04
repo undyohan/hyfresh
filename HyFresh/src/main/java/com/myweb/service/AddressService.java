@@ -11,5 +11,6 @@ public interface AddressService {
 	public List<AddressVO> getList(int mno);
 	public int modify(AddressVO avo);
 	public int remove(AddressVO avo);
-	public int openmod(AddressVO avo);
+	public AddressVO openmod(AddressVO avo);
+	public int getFirstAddrno(int mno);
 }

@@ -5,45 +5,58 @@ import java.util.Date;
 public class CartVO {
 	private int cno;
 	private int pno;
+	private String email;
 	private int mno;
 	private int qt;
-	private Date getd8;
+	private String getd8;
 	private String pname;
 	private int price;
+	private int discount;
+	private int dfee;
 	private String img;
 	
-	
-	public CartVO(int pno, int mno, int qt, String pname, int price, String img) {
+	public CartVO() {}
+
+	//장바구니 추가용
+	public CartVO(int pno, String email, int qt) {
 		this.pno = pno;
-		this.mno = mno;
+		this.email = email;
 		this.qt = qt;
-		this.pname = pname;
-		this.price = price;
-		this.img = img;
 	}
 	
-	
-	
-	
-	
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
 	public int getCno() {
 		return cno;
 	}
+	
 	public void setCno(int cno) {
 		this.cno = cno;
 	}
+	
 	public int getPno() {
 		return pno;
 	}
+	
 	public void setPno(int pno) {
 		this.pno = pno;
 	}
-	public int getMno() {
-		return mno;
+	
+	public String getEmail() {
+		return email;
 	}
-	public void setMno(int mno) {
-		this.mno = mno;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
 	public int getQt() {
 		return qt;
 	}
@@ -51,12 +64,22 @@ public class CartVO {
 		this.qt = qt;
 	}
 	
-	public Date getGetd8() {
+	public int getMno() {
+		return mno;
+	}
+
+	public void setMno(int mno) {
+		this.mno = mno;
+	}
+
+	public String getGetd8() {
 		return getd8;
 	}
-	public void setGetd8(Date getd8) {
+
+	public void setGetd8(String getd8) {
 		this.getd8 = getd8;
 	}
+
 	public String getPname() {
 		return pname;
 	}
@@ -75,5 +98,19 @@ public class CartVO {
 	public void setImg(String img) {
 		this.img = img;
 	}
-	
+
+	public int getDfee() {
+		return dfee;
+	}
+
+	public void setDfee(int dfee) {
+		this.dfee = dfee;
+	}
+
+	@Override
+	public String toString() {
+		return "CartVO [cno=" + cno + ", pno=" + pno + ", email=" + email + ", mno=" + mno + ", qt=" + qt + ", getd8="
+				+ getd8 + ", pname=" + pname + ", price=" + price + ", discount=" + discount + ", dfee=" + dfee
+				+ ", img=" + img + "]";
+	}
 }

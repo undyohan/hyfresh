@@ -20,7 +20,17 @@ public class ProductVO {
 	private int discount;
 	private String custom;
 	
+	private String tname;
+	
 	public ProductVO() { }
+	public ProductVO(int pno, String pname, int price, String custom, String img, String tname) {
+		this.pno = pno;
+		this.pname = pname;
+		this.price = price;
+		this.custom = custom;
+		this.img = img;
+		this.tname = tname;
+	}
 	public ProductVO(String pname, int price, String content, String img, int stock, int dfee, int discount,
 			String custom) {
 		this.pname = pname;
@@ -31,6 +41,19 @@ public class ProductVO {
 		this.dfee = dfee;
 		this.discount = discount;
 		this.custom = custom;
+	}
+	public ProductVO(int cateno, String pname, int price, String content, String img, int stock, int dfee,
+			int discount, String custom, String tname) {
+		this.cateno = cateno;
+		this.pname = pname;
+		this.price = price;
+		this.content = content;
+		this.img = img;
+		this.stock = stock;
+		this.dfee = dfee;
+		this.discount = discount;
+		this.custom = custom;
+		this.tname = tname;
 	}
 	public ProductVO(int pno, int cateno, int mno, int tno, String pname, int price, String content, String img,
 			Date regd8, Date modd8, int stock, int dfee, int readcount, int sellcount, int discount, String custom) {
@@ -50,6 +73,20 @@ public class ProductVO {
 		this.sellcount = sellcount;
 		this.discount = discount;
 		this.custom = custom;
+	}
+	public ProductVO(int pno, int cateno, String pname, int price, String content, String img, int stock, int dfee,
+			int discount, String custom, String tname) {
+		this.pno = pno;
+		this.cateno = cateno;
+		this.pname = pname;
+		this.price = price;
+		this.content = content;
+		this.img = img;
+		this.stock = stock;
+		this.dfee = dfee;
+		this.discount = discount;
+		this.custom = custom;
+		this.tname = tname;
 	}
 	
 	public int getPno() {
@@ -147,6 +184,12 @@ public class ProductVO {
 	}
 	public void setCustom(String custom) {
 		this.custom = custom;
+	}
+	public String getTname() {
+		return tname;
+	}
+	public void setTname(String tname) {
+		this.tname = tname;
 	}
 	
 	@Override

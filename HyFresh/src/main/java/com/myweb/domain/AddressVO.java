@@ -5,6 +5,7 @@ public class AddressVO {
 	private int mno;
 	private String addrname;
 	private String receiver;
+	private String zipcode;
 	private String addr;
 	private String tel;
 	
@@ -22,11 +23,12 @@ public class AddressVO {
 	}
 
 	// update
-	public AddressVO(int addrno, int mno, String addrname, String receiver, String addr, String tel) {
+	public AddressVO(int addrno, int mno, String addrname, String receiver, String zipcode, String addr, String tel) {
 		this.addrno = addrno;
 		this.mno = mno;
 		this.addrname = addrname;
 		this.receiver = receiver;
+		this.zipcode = zipcode;
 		this.addr = addr;
 		this.tel = tel;
 	}
@@ -61,6 +63,14 @@ public class AddressVO {
 
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 
 	public String getAddr() {

@@ -3,38 +3,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- Footer -->
-<footer class="py-5 bg-dark blog-footer">
-  <div class="container">
-    <p class="m-0 text-center text-white">Copyright &copy;
-      1팀 Avengers (김희수,송민영,안요한,윤희국,이준우) 2020</p>
+<footer class="py-4 bg-dark mt-auto footer">
+  <div class="container-fluid">
+    <p class="d-flex align-items-center justify-content-center small ">
+      Copyright &copy; 1팀 (김희수,송민영,안요한,윤희국,이준우) 2020
+    </p>
+  </div>
   <!-- /.container -->
 </footer>
 
 <script type='text/javascript'>
-	let msg = '<c:out value="${msg}"/>';
-	if(msg != '') {alert(msg);}
-	
+  let msg = '<c:out value="${msg}"/>';
+  if(msg != '') {alert(msg);}
+  
   $(function() {
-    $("#chkemail").on("blur", function() {
-          let emailVal = $("#chkemail").val();
-          $.ajax({
-            url : "/member/checkDuple",
-            type : "GET",
-            data : {
-              email : emailVal
-            },
-            success : function(result) {
-              if (result > 0) {
-                $("#chkEmail").text("중복된 이메일입니다.").css("color",
-                    "#f00");
-              } else {
-                $("#chkEmail").text("사용가능한 이메일입니다.").css(
-                    "color", "#0f0");
-              }
-            }
-          });
-        })
-  });
+       $("#alert-possible").hide();
+       $("#alert-duple").hide();
+       $("#email").on("blur", function() {
+             let emailVal = $("#email").val();
+             $.ajax({
+               url : "/member/checkDuple",
+               type : "GET",
+               data : {
+                 email : emailVal
+               },
+               success : function(result) {
+                 console.log(result);
+                 if (result > 0) {
+                    $("#alert-duple").show();
+                     $("#alert-possible").hide();
+                   } else {
+                     $("#alert-duple").hide();
+                     $("#alert-possible").show();
+                 }
+               }
+             });
+           })
+     });
   $(function() {
     $("#alert-success").hide();
     $("#alert-danger").hide();
@@ -49,15 +54,10 @@
         } else {
           $("#alert-success").hide();
           $("#alert-danger").show();
-          $("#submit").attr("disabled", "disabled");
+          $("#registerBtn").attr("disabled", "disabled");
         }
       }
     });
-    $("#confirmPwd").on("keyup", function() {
-  			if($("#pwd").val() == $("confirmPwd").val()) {
-  				$("#registerBtn").removeAttr('disabled');
-  			}
-  		});
   });
   
   /* Kakao.init('5bd55378dbfa2926c3d82cc62d002004') */
@@ -78,7 +78,6 @@
 </body>
 
 </html>
-
 
 
 

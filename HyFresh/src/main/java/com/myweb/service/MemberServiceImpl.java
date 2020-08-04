@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.myweb.domain.Criterion;
 import com.myweb.domain.MemberVO;
+import com.myweb.domain.ReviewVO;
 import com.myweb.persistence.MemberDAO;
 
 @Service
@@ -50,8 +51,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int updateResign(String email) {
-		return mdao.deleteMember(email);
+	public int updateResign(int mno) {
+		return mdao.deleteMember(mno);
 	}
 
 	@Override
@@ -62,5 +63,42 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int chooseaddr(MemberVO mvo) {
 		return mdao.updateAddrno(mvo);
+	}
+	
+	@Override
+	public int checkPwd(MemberVO mvo) {
+		return mdao.checkPwd(mvo);
+	}
+
+	@Override
+	public int modifyPwd(MemberVO newMvo) {
+		return mdao.updatePwd(newMvo);
+	}
+	
+	/********************************************************************
+	1. Title: MemberServiceImpl
+
+	2. Author: 이준우
+
+	3. Revision history
+	 2020-07-29 16:11  이준우 리뷰 작성 추가
+	 2020-07-29 19:26 이준우 리뷰 상태 갱신
+
+	*****************************************************************/
+	// 리뷰 작성
+	@Override
+	public void insertReview(ReviewVO rvo, int odno) {
+		mdao.insertReview(rvo);
+		mdao.checkReview(odno);
+	}
+	
+	@Override
+	public int getStatusCount(int mno, int status) {
+		return mdao.getStatusCount("where mno = '" + mno + "' and status = '" + status + "'");
+	}
+
+	@Override
+	public int getStatusCount(int status) {
+		return mdao.getStatusCount(status);
 	}
 }

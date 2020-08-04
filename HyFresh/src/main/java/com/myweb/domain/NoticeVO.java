@@ -1,6 +1,5 @@
 package com.myweb.domain;
-
-import java.util.Date;
+import java.sql.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class NoticeVO {
 	private static Logger logger = LoggerFactory.getLogger(NoticeVO.class);
 	private int nno;
-	private int mno;
+	private String writer;	
 	private String title;
 	private String content;
 	private String img;
@@ -19,16 +18,18 @@ public class NoticeVO {
 	public NoticeVO() {}
 
 	//write
-	public NoticeVO(String title, String content, String img) {
-		this.title = title;
+	public NoticeVO(String title,  String writer,  String content, String img) {
+		this.title = title;	
+		this.writer=writer;
 		this.content = content;
 		this.img = img;
 	}
 
 	//modify
-	public NoticeVO(String title, String content, String img, int nno) {
+	public NoticeVO(int nno, String title, String writer, String content, String img) {
 		this.nno = nno;
 		this.title = title;
+		this.writer=writer;
 		this.content = content;
 		this.img = img;
 	}
@@ -49,12 +50,12 @@ public class NoticeVO {
 		this.nno = nno;
 	}
 
-	public int getMno() {
-		return mno;
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setMno(int mno) {
-		this.mno = mno;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 	public String getTitle() {

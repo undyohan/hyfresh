@@ -4,7 +4,7 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <jsp:include page="../common/nav.jsp"></jsp:include>
 <section class="py-5">
-	<div class="container-fluid">
+	<div class="container">
 	  <div class="row no-gutter">
 	    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
 	    <div class="col-md-8 col-lg-6">
@@ -36,12 +36,6 @@
 		              <!-- <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> -->
 		              <button class="btn btn-lg btn-naver btn-block text-uppercase" type="submit">N &nbsp; Sign in with Naver</button>
 		              <button class="btn btn-lg btn-kakao btn-block text-uppercase" type="submit"><i class="fab fa-kaggle mr-2"></i> Sign in with Kakaotalk</button>
-		              <div class="mt-2">
-			              <a id="login-form-btn" href="javascript:loginFormWithKakao()">
-		   							  <img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" width="222"/>
-	  								</a>
-									  <p id="login-form-result"></p>
-		              </div>
 	              </form>
 	            </div>
 	          </div>

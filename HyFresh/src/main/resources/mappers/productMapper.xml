@@ -5,18 +5,93 @@
 <mapper namespace="ProductMapper">
   <select id="getList" parameterType="java.util.HashMap" resultType="ProductVO">
     <![CDATA[
-      select tp.pname, tp.price, tp.custom, tt.tname 
-      from (select /*+INDEX(tbl_product pk_product)*/
-        rownum as rn, pname, price, custom, tno
+      select tp.pno, tp.pname, tp.price, tp.custom, tp.readcount, tp.sellcount, tp.regd8, tp.modd8, tp.discount, tp.cateno, tp.stock, tp.bestcount, tp.img, tt.tname 
+      from (select /*+INDEX(tbl_product pk_product)*/ 
+        rownum as rn, pno, pname, price, custom, img, tno, readcount, sellcount, regd8, modd8, discount, cateno, stock, readcount+sellcount as bestcount 
         from tbl_product 
         where rownum <= #{cri.pageNum} * #{cri.amount}
       )
-      as pt join tbl_tag as tt on pt.tno = tt.tno
-      where rn > (#{cri.pageNum} - 1) * #{cri.amount} #{where}
+      tp join tbl_tag tt on tp.tno = tt.tno
+      where rn > (#{cri.pageNum} - 1) * #{cri.amount} ${where}
     ]]>
   </select>
-  <select id="listReview" parameterType="java.lang.Integer" resultType="ReviewVO">
-    select rate, writer, title, content, img, regd8, modd8 from tbl_review where pno = #{pno}
+  <select id="getNewList" parameterType="java.util.HashMap" resultType="ProductVO">
+    <![CDATA[
+      select tp.pno, tp.pname, tp.price, tp.custom, tp.readcount, tp.sellcount, tp.regd8, tp.modd8, tp.discount, tp.cateno, tp.stock, tp.bestcount, tp.img, tt.tname
+      from (select /*+INDEX_DESC(tbl_product pk_product)*/ 
+        rownum as rn, pno, pname, price, custom, img, tno, readcount, sellcount, regd8, modd8, discount, cateno, stock, readcount+sellcount as bestcount 
+        from tbl_product 
+        where rownum <= #{cri.pageNum} * #{cri.amount}
+      )
+      tp join tbl_tag tt on tp.tno = tt.tno
+      where rn > (#{cri.pageNum} - 1) * #{cri.amount} ${where}
+    ]]>
+  </select>
+  <select id="getSList" parameterType="java.util.HashMap" resultType="ProductVO">
+    <![CDATA[
+      select pno, pname, price, custom, img, tno, readcount, sellcount, regd8, modd8, discount, cateno, stock, tname, bestcount
+      from (select 
+        rownum as rn, tp.pno, tp.pname, tp.price, tp.custom, tp.img, tp.tno, tp.readcount, tp.sellcount, tp.regd8, tp.modd8, tp.discount, tp.cateno, tp.stock, tt.tname, readcount+sellcount as bestcount 
+        from (SELECT * FROM tbl_product ORDER BY ROWNUM desc) tp JOIN TBL_TAG tt ON tp.tno = tt.tno
+        where rownum <= #{cri.pageNum} * #{cri.amount} ${where}
+      )
+      where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+    ]]>
+  </select>
+  <select id="getAllCateList" parameterType="java.util.HashMap" resultType="ProductVO">
+    <![CDATA[
+      select tp.pno, tp.pname, tp.price, tp.custom, tp.readcount, tp.sellcount, tp.regd8, tp.modd8, tp.discount, tp.cateno, tp.stock, tp.bestcount, tp.img, tt.tname
+      from (select /*+INDEX_DESC(tbl_product pk_product)*/ 
+        rownum as rn, pno, pname, price, custom, img, tno, readcount, sellcount, regd8, modd8, discount, cateno, stock, readcount+sellcount as bestcount 
+        from tbl_product 
+        where rownum <= #{cri.pageNum} * #{cri.amount}
+      )
+      tp join tbl_category tc on tp.cateno = tc.cateno
+      where rn > (#{cri.pageNum} - 1) * #{cri.amount} ${where}
+    ]]>
+  </select>
+  <select id="getSameList" parameterType="java.util.HashMap" resultType="ProductVO">
+    <![CDATA[
+      SELECT * FROM (select /*+INDEX_DESC(tbl_product pk_product)*/ 
+        rownum as rn, pno, pname, price, custom, img, tno, discount 
+        from tbl_product 
+        where rownum <= #{cri.pageNum} * #{cri.amount}
+      ) tp JOIN (SELECT /*+INDEX_DESC(tbl_tag pk_tag)*/ 
+      tno, tname 
+      FROM TBL_TAG WHERE ${where}) tt ON tp.tno = tt.tno where pno != #{pno} 
+      and rn > (#{cri.pageNum} - 1) * #{cri.amount}
+    ]]>
+  </select>
+  <select id="getCustomList" parameterType="java.util.HashMap" resultType="ProductVO">
+    <![CDATA[
+      SELECT * FROM (select /*+INDEX_DESC(tbl_product pk_product)*/ 
+        rownum as rn, pno, pname, price, custom, img, tno, discount 
+        from tbl_product 
+        where rownum <= #{cri.pageNum} * #{cri.amount} ${where1} 
+      ) tp JOIN (SELECT /*+INDEX_DESC(tbl_tag pk_tag)*/ 
+      tno, tname 
+      FROM TBL_TAG) tt ON tp.tno = tt.tno ${where2} 
+      and rn > (#{cri.pageNum} - 1) * #{cri.amount}
+    ]]>
+  </select>
+  <select id="total" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <![CDATA[
+      select count(pno) from tbl_product where pno = #{pno}
+    ]]>
+  </select>
+  <select id="listReview" parameterType="java.util.HashMap" resultType="ReviewVO">
+    <![CDATA[
+      select rno, rate, writer, title, content, img, regd8, modd8 
+      from (select /*+INDEX(tbl_review pk_review)*/
+      rownum as rn, rno, rate, writer, title, content, img, regd8, modd8 
+      from tbl_review
+      where pno = #{pno} and rownum <= #{cri.pageNum} * #{cri.amount}
+      )
+      where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+    ]]>
+  </select>
+  <select id="getStar" parameterType="java.lang.Integer" resultType="ReviewVO">
+    select AVG(rate) as avg, count(rate) as count from tbl_review where pno = #{pno}
   </select>
   <insert id="addReview" parameterType="ReviewVO">
     insert into tbl_review (rno, pno, mno, rate, writer, title, content, img, regd8, modd8)
@@ -30,11 +105,18 @@
     delete from tbl_review where rno = #{rno}
   </delete>
   <select id="getProduct" parameterType="java.lang.Integer" resultType="ProductVO">
-    select * from tbl_product where pno = #{pno}
+    select tp.pno, tp.pname, tp.price, tp.custom, tp.dfee, tp.stock, tp.content, tp.cateno, tp.img, tp.sellcount, tp.discount, tt.tname 
+    from tbl_product tp join tbl_tag tt on tp.tno = tt.tno where pno = #{pno}
   </select>
+  <update id="updateReadCnt" parameterType="java.lang.Integer">
+    update tbl_product set readcount = readcount + 1 where pno = #{pno}
+  </update>
   <select id="getTotalCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
       <![CDATA[
-        select count(#{count}) from #{db} where #{count} > 0
+        select count(${count}) from ${db} ${where}
       ]]> 
+  </select>
+  <select id="getCateList" resultType="CategoryVO">
+    select * from tbl_category
   </select>
 </mapper>

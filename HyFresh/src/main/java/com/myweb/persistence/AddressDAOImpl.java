@@ -46,8 +46,13 @@ public class AddressDAOImpl implements AddressDAO{
 	}
 
 	@Override
-	public int selectOne(AddressVO avo) {
+	public AddressVO selectOne(AddressVO avo) {
 		return sql.selectOne(ns+"selectOne", avo);
+	}
+
+	@Override
+	public int getFirstAddrno(int mno) {
+		return sql.selectOne(ns+"getFirstAddrno", mno);
 	}
 
 }

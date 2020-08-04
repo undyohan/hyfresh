@@ -39,9 +39,9 @@
   </select>
   <select id="mlist" parameterType="Criterion" resultType="MemberVO">
     <![CDATA[        
-    select mno,email,name,home,tel,birth,grade,point,regd8
+    select mno,email,name,zipcode,home,tel,birth,grade,point,regd8
     from (select /*+INDEX_DESC(tbl_member pk_member)*/ 
-          rownum as rn,mno,email,name,home,tel,birth,grade,point,regd8
+          rownum as rn,mno,email,name,zipcode,home,tel,birth,grade,point,regd8
           from tbl_member
           where mno > 0
     ]]>
@@ -54,8 +54,14 @@
   <select id="mInfo" parameterType="java.lang.Integer" resultType="MemberVO">
     select * from tbl_member where mno = #{mno}
   </select>
+  <select id="checkPwd" parameterType="MemberVO" resultType="java.lang.Integer">
+    select count(mno) from tbl_member where mno = #{mno} and pwd = #{pwd} 
+  </select>
   <update id="modify" parameterType="MemberVO">
-    update tbl_member set pwd = #{pwd}, name = #{name}, home = #{home}, tel = #{tel}, birth = #{birth} where mno = #{mno}
+    update tbl_member set pwd = #{pwd}, name = #{name}, zipcode = #{zipcode}, home = #{home}, tel = #{tel}, birth = #{birth} where mno = #{mno}
+  </update>
+  <update id="modifyPwd" parameterType="MemberVO">
+    update tbl_member set pwd = #{pwd} where mno = #{mno}
   </update>
   <delete id="resign" parameterType="java.lang.Integer">
     update tbl_member set grade= -1 where mno=#{mno} 
@@ -69,4 +75,23 @@
   <update id="updateAddrno" parameterType="MemberVO">
     update tbl_member set addrno = #{addrno} where mno = #{mno}
   </update>
+  <insert id="insertReview" parameterType="ReviewVO">
+    insert into tbl_review(rno, pno, rate, writer, title, content, img, regd8, modd8) 
+    values(seq_review_rno.nextval, #{pno}, #{rate}, #{writer}, #{title}, #{content}, #{img}, sysdate, sysdate)
+  </insert>
+  <update id="checkReview" parameterType="java.lang.Integer">
+    update tbl_orderdetail set rno = 1 where odno = #{odno}
+  </update>
+  <select id="countCart" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT count(cno) FROM TBL_CART WHERE mno=#{mno}
+  </select>
+  <select id="getStatusCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+    SELECT count(d.ocode) FROM TBL_ORDER o JOIN TBL_ORDERDETAIL d ON o.ocode = d.ocode ${where}
+  </select>
+  <select id="getStatusCountAll" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT count(d.ocode) FROM TBL_ORDER o JOIN TBL_ORDERDETAIL d ON o.ocode = d.ocode
+    <if test='_parameter != 9'>
+      where status = #{status}
+    </if>
+  </select>
 </mapper>

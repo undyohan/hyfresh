@@ -3,25 +3,28 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AddressMapper">
-  <insert id="add" parameterType="AddrVO">
-    insert into tbl_address (addrno,mno,addrname,receiver,addr,tel) 
-    values(seq_Address_addrno.nextval,#{mno},#{addrname},#{receiver},#{addr},#{tel})
+  <insert id="add" parameterType="AddressVO">
+    insert into tbl_address (addrno,mno,addrname,receiver,zipcode,addr,tel) 
+    values(seq_Address_addrno.nextval,#{mno},#{addrname},#{zipcode},#{receiver},#{addr},#{tel})
   </insert>
-  <insert id="firstadd" parameterType="AddrVO">
-    insert into tbl_address (addrno,mno,addrname,receiver,addr,tel)
-    values(seq_Address_addrno.nextval,#{mno},#{name},#{name},#{home},#{tel})
+  <insert id="firstadd" parameterType="MemberVO">
+    insert into tbl_address (addrno,mno,addrname,receiver,zipcode,addr,tel)
+    values(seq_Address_addrno.nextval,#{mno},#{name},#{name},#{zipcode},#{home},#{tel})
   </insert>
-  <select id="alist" parameterType="java.lang.Integer" resultType="AddrVO">
+  <select id="alist" parameterType="java.lang.Integer" resultType="AddressVO">
     select * from tbl_address where mno=#{mno}
   </select>
-  <update id="modify" parameterType="AddrVO">
-    update tbl_address set addrname = #{addrname}, receiver = #{receiver}, addr = #{addr}, tel = #{tel}
+  <update id="modify" parameterType="AddressVO">
+    update tbl_address set addrname = #{addrname}, receiver = #{receiver}, zipcode = #{zipcode}, addr = #{addr}, tel = #{tel}
     where addrno = #{addrno} and mno = #{mno}
   </update>
-  <delete id="remove" parameterType="AddrVO">
-    delete from tbl_address where mno = #{mno} and addrno = #{addrno}
+  <delete id="remove" parameterType="AddressVO">
+    delete from tbl_address where addrno = #{addrno}
   </delete>
-  <select id="selectOne" parameterType="AddrVO" resultType="AddrVO">
-    select * from tbl_address where addrno = #{addrno} and mno = #{mno} 
+  <select id="selectOne" parameterType="AddressVO" resultType="AddressVO">
+    select * from tbl_address where addrno = #{addrno} 
+  </select>
+  <select id="getFirstAddrno" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select addrno from tbl_address where mno = #{mno}
   </select>
 </mapper>

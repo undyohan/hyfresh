@@ -5,42 +5,40 @@
 <jsp:include page="../admin/adminheader.jsp"></jsp:include>
 <jsp:include page="../admin/admincommon.jsp"></jsp:include>
 <main>
-	<div class="container-fluid">
-	  <h1 class="mt-4">회원리스트</h1>
-	  <ol class="breadcrumb mb-4">
-	    <li class="breadcrumb-item active"><a href="/admin/main">관리자메인</a> > 회원리스트</li>
-	  </ol>
-	  <div>
-	    <!-- 여기 안에 내용 작성 -->  
-	    <div class="container">
-	    <h1>회원정보 수정</h1>
-	    <form action="/member/modify" method="post">
-	      <div class="form-group">
-	        <label for="mno">회원번호:</label> <input type="number"
-	          class="form-control" value="${mvo.mno }" name="mno" readonly>
-	      </div>
-	      <div class="form-group">
-	        <label for="email">Email:</label> <input type="email"
-	          class="form-control" value="${mvo.email }" name="email" readonly>
-	      </div>
-	      <div class="form-group">
-	        <label for="pwd">Password:</label> <input type="password"
-	          class="form-control" id="pwd" value="${mvo.pwd }"
-	          name="pwd">
-	      </div>
-	      <div class="form-group">
-	        <label for="nick">Name:</label> <input type="text"
-	          class="form-control" id="nick" value="${mvo.nickname }"
-	          name="nickname">
-	      </div>
-	      <button type="submit" class="btn btn-primary">Submit</button>
-	    </form>
-	  </div>
-	  </div>
-	</div>
+  <div class="container-fluid">
+    <h3 class="mt-4">회원리스트</h3>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active"><a href="/admin/main">관리자메인</a> > 회원리스트</li>
+    </ol>
+    <div>
+      <!-- 여기 안에 내용 작성 -->  
+      <div class="container">
+      <h1>회원정보 수정</h1>
+      <form action="/member/modify" method="post">
+        <div class="form-group">
+          <label for="mno">회원번호:</label> <input type="number"
+            class="form-control" value="${mvo.mno }" name="mno" readonly>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label> <input type="email"
+            class="form-control" value="${mvo.email }" name="email" readonly>
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password:</label> <input type="password"
+            class="form-control" id="pwd" value="${mvo.pwd }"
+            name="pwd">
+        </div>
+        <div class="form-group">
+          <label for="nick">Name:</label> <input type="text"
+            class="form-control" id="nick" value="${mvo.nickname }"
+            name="nickname">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    </div>
+  </div>
 </main>
-<section class="py-5">
-</section>
 <jsp:include page="../admin/adminfooter.jsp"></jsp:include>
 
 

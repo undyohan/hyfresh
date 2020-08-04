@@ -45,7 +45,12 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public int openmod(AddressVO avo) {
+	public AddressVO openmod(AddressVO avo) {
 		return adao.selectOne(avo);
+	}
+
+	@Override
+	public int getFirstAddrno(int mno) {
+		return adao.getFirstAddrno(mno);
 	}
 }

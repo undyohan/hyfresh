@@ -1,154 +1,145 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link href="/resources/css/main.css" rel="stylesheet">
+<div id="demo" class="carousel slide" data-ride="carousel">
 
-<div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
-    <div class="col-md-6 px-0">
-      <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
-      <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-      <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
+  <!-- Indicators -->
+  <ul class="carousel-indicators" style="">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+  
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <a href="/notice/detail?nno=1&pSign=0"><img src="/resources/img/main_banner_1.jpg" width="1100" height="500"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="/notice/detail?nno=2&pSign=0"><img src="/resources/img/main_banner_2.png" width="1100" height="500"></a>
+    </div>
+    <div class="carousel-item">
+      <a href="/notice/detail?nno=3&pSign=0"><img src="/resources/img/main_banner_3.jpg" width="1100" height="500"></a>
     </div>
   </div>
-
-  <div class="row mb-2">
-    <div class="col-md-6">
-      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">World</strong>
-          <h3 class="mb-0">Featured post</h3>
-          <div class="mb-1 text-muted">Nov 12</div>
-          <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="stretched-link">Continue reading</a>
+  
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>    
+  <div class="container mt-3 mb-3">
+  <h4 class="mt-3 mb-3" style="text-align: center;">베스트제품</h4>
+  <c:forEach items="${pList }" var="pvo" varStatus="i">
+    <c:if test="${i.count eq 1 or i.count eq 5 }">
+      <div class="row" style="margin: 10px 0; padding: 10px">
+        <div class="col" style="max-width:276.67px; padding: 5px;">
+     <div class="card" style="height:100%; cursor:pointer;" onclick="location.href='/product/detail?pno=${pvo.pno }';">
+        <img class="card-img-top" src="${pvo.img }" alt="Card image" style="width: 100%; height: 248px; object-fit: cover; overflow:hidden">
+        <div class="card-body">
+          <p class="card-text" style="color: #C8C8C8;font-size: 13px;">
+          ${pvo.tname }
+          </p>
+          <h4 class="card-title" style="font-size: 20px; margin: 0px"><a>${pvo.pname }</a></h4>
+          <span class="card-text" style="font-size: 20px; color: #009edb">
+          <fmt:parseNumber value="${pvo.price}" integerOnly="true" var="price" />
+          <fmt:parseNumber value="${pvo.discount}" integerOnly="true" var="discount" />
+          <c:if test="${pvo.discount != 0 }">
+          <span style="font-size: 15px; text-decoration: line-through; color: #b2b2b2"><fmt:formatNumber value="${pvo.price}" type="currency" currencySymbol=""/>원</span>
+          <fmt:formatNumber value="${price * (1 - discount / 100) }" type="currency" currencySymbol=""/>
+          </c:if>
+          <c:if test="${pvo.discount == 0 }">
+          <fmt:formatNumber value="${pvo.price}" type="currency" currencySymbol=""/>
+          </c:if>
+          </span>
+          <span style="font-size: 13px; color: #009edb">원</span>
         </div>
-        <div class="col-auto d-none d-lg-block">
-          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+      </div>
+      </div>
+    </c:if>
+    <c:if test="${i.count ne 1 and i.count ne 5 }">
+      <div class="col" style="max-width:276.67px; padding: 5px;">
+    <div class="card" style="height:100%; cursor:pointer;" onclick="location.href='/product/detail?pno=${pvo.pno }';">
+        <img class="card-img-top" src="${pvo.img }" alt="Card image" style="width: 100%; height: 248px; object-fit: cover; overflow:hidden">
+        <div class="card-body">
+          <p class="card-text" style="color: #C8C8C8;font-size: 13px;">
+          ${pvo.tname }
+          </p>
+          <h4 class="card-title" style="font-size: 20px; margin: 0px"><a>${pvo.pname }</a></h4>
+          <span class="card-text" style="font-size: 20px; color: #009edb">
+          <fmt:parseNumber value="${pvo.price}" integerOnly="true" var="price" />
+          <fmt:parseNumber value="${pvo.discount}" integerOnly="true" var="discount" />
+          <c:if test="${pvo.discount != 0 }">
+          <span style="font-size: 15px; text-decoration: line-through; color: #b2b2b2"><fmt:formatNumber value="${pvo.price}" type="currency" currencySymbol=""/>원</span>
+          <fmt:formatNumber value="${price * (1 - discount / 100) }" type="currency" currencySymbol=""/>
+          </c:if>
+          <c:if test="${pvo.discount == 0 }">
+          <fmt:formatNumber value="${pvo.price}" type="currency" currencySymbol=""/>
+          </c:if>
+          </span>
+          <span style="font-size: 13px; color: #009edb">원</span>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-success">Design</strong>
-          <h3 class="mb-0">Post title</h3>
-          <div class="mb-1 text-muted">Nov 11</div>
-          <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="stretched-link">Continue reading</a>
+    </c:if>
+    <c:if test="${i.count % 4 == 0 }">
         </div>
-        <div class="col-auto d-none d-lg-block">
-          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        </div>
-      </div>
-    </div>
-  </div>
+    </c:if>
+  </c:forEach>
+</div>
 </div>
 
-<main role="main" class="container">
-  <div class="row">
-    <div class="col-md-8 blog-main">
-      <h3 class="pb-4 mb-4 font-italic border-bottom">
-        From the Firehose
-      </h3>
+<div class="container-fluid">
+  <img src="/resources/img/main_sub_banner.jpg">
+</div>
 
-      <div class="blog-post">
-        <h2 class="blog-post-title">Sample blog post</h2>
-        <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+<!-- carousel 아니고 정지된 이미지라 바꿈 -->
+<!-- <div id="demo2" class="carousel slide" data-ride="carousel">
 
-        <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
-        <hr>
-        <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-        <blockquote>
-          <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-        </blockquote>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-        <h2>Heading</h2>
-        <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-        <h3>Sub-heading</h3>
-        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-        <pre><code>Example code block</code></pre>
-        <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-        <h3>Sub-heading</h3>
-        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <ul>
-          <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-          <li>Donec id elit non mi porta gravida at eget metus.</li>
-          <li>Nulla vitae elit libero, a pharetra augue.</li>
-        </ul>
-        <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-        <ol>
-          <li>Vestibulum id ligula porta felis euismod semper.</li>
-          <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
-          <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
-        </ol>
-        <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
-      </div><!-- /.blog-post -->
+  Indicators
+  <ul class="carousel-indicators">
+    <li data-target="#demo2" data-slide-to="0" class="active"></li>
+    <li data-target="#demo2" data-slide-to="1"></li>
+    <li data-target="#demo2" data-slide-to="2"></li>
+  </ul>
 
-      <div class="blog-post">
-        <h2 class="blog-post-title">Another blog post</h2>
-        <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
+  The slideshow
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/resources/img/main_sub_banner.jpg">
+    </div>
+    <div class="carousel-item">
+      <img src="/resources/img/main_sub_banner.jpg">
+    </div>
+    <div class="carousel-item">
+      <img src="/resources/img/main_sub_banner.jpg">
+    </div>
+  </div>
 
-        <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-        <blockquote>
-          <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-        </blockquote>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-        <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      </div><!-- /.blog-post -->
+  Left and right controls
+  <a class="carousel-control-prev" href="#demo2" data-slide="prev" style="left: 150px">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo2" data-slide="next" style="right: 150px">
+    <span class="carousel-control-next-icon"></span>
+  </a> -->
 
-      <div class="blog-post">
-        <h2 class="blog-post-title">New feature</h2>
-        <p class="blog-post-meta">December 14, 2013 by <a href="#">Chris</a></p>
-
-        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <ul>
-          <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-          <li>Donec id elit non mi porta gravida at eget metus.</li>
-          <li>Nulla vitae elit libero, a pharetra augue.</li>
-        </ul>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-        <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-      </div><!-- /.blog-post -->
-
-      <nav class="blog-pagination">
-        <a class="btn btn-outline-primary" href="#">Older</a>
-        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
-      </nav>
-
-    </div><!-- /.blog-main -->
-
-    <aside class="col-md-4 blog-sidebar">
-      <div class="p-4 mb-3 bg-light rounded">
-        <h4 class="font-italic">About</h4>
-        <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-      </div>
-
-      <div class="p-4">
-        <h4 class="font-italic">Archives</h4>
-        <ol class="list-unstyled mb-0">
-          <li><a href="#">March 2014</a></li>
-          <li><a href="#">February 2014</a></li>
-          <li><a href="#">January 2014</a></li>
-          <li><a href="#">December 2013</a></li>
-          <li><a href="#">November 2013</a></li>
-          <li><a href="#">October 2013</a></li>
-          <li><a href="#">September 2013</a></li>
-          <li><a href="#">August 2013</a></li>
-          <li><a href="#">July 2013</a></li>
-          <li><a href="#">June 2013</a></li>
-          <li><a href="#">May 2013</a></li>
-          <li><a href="#">April 2013</a></li>
-        </ol>
-      </div>
-
-      <div class="p-4">
-        <h4 class="font-italic">Elsewhere</h4>
-        <ol class="list-unstyled">
-          <li><a href="#">GitHub</a></li>
-          <li><a href="#">Twitter</a></li>
-          <li><a href="#">Facebook</a></li>
-        </ol>
-      </div>
-    </aside><!-- /.blog-sidebar -->
-
-  </div><!-- /.row -->
-
-</main><!-- /.container -->
+</div>
+  <div class="container mt-3 mb-3">
+    <h4 class="mt-3 mb-3" style="text-align: center;">신제품</h4>
+    <div class="row">
+    <c:forEach items="${pList2 }" var="pvo2" varStatus="i">
+     <div class="col font-weight-bolder mb-5" style="max-width: 350px; text-align:center; overflow:hidden; padding: 0; margin: 0 15px;">
+       <a href="/product/detail?pno=${pvo2.pno }" class="new-a">
+         <img src="${pvo2.img }" class="new-img">
+         <span class="new-span">${pvo2.pname }<br><fmt:formatNumber value="${pvo2.price}" type="currency" currencySymbol=""/>원</span>
+       </a>
+     </div>
+     </c:forEach>
+    </div>
+  </div>

@@ -3,21 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../admin/adminheader.jsp"></jsp:include>
 <jsp:include page="../admin/admincommon.jsp"></jsp:include>
-<section class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-  <div class="container">
-    <h1>회원목록</h1>
+<main>
+  <div class="container-fluid">
+    <h3 class="mt-4">회원리스트</h3>
     <div class="float-right form-group">
-      <form action="/member/list?pageNum" class="form-inline">
-       <input type="hidden" name="pagenum" value="1">
+      <form action="/admin/mlist" class="form-inline">
+       <input type="hidden" name="pageNum" value="1">
        <input type="hidden" name="amount" value="${pgvo.cri.amount }">
         <div class="input-group">
           <div class="input-group-prepend">
            <select class="form-control" id="stype" name="type">
-            <option value="en">이메일+닉네임</option>
+            <option value="en">이메일+이름</option>
             <option value="e">이메일</option>
-            <option value="n">닉네임</option>
-            <option value="m">회원번호</option>
-            </select>
+            <option value="n">이름</option>
+           </select>
            </div>
            <input type="text" class="form-control" placeholder="키워드를 입력하세요" name="keyword">
            <div class="input-group-append">
@@ -26,14 +25,22 @@
         </div>
       </form>
     </div>
-    <table class="table table-hover">
-      <thead>
-        <tr class="table-info">
+    <table class="table table-sm table-hover">
+      <thead class="thead-dark">
+        <tr>
           <th>회원번호</th>
-          <th>Email</th>
-          <th>Name</th>
-          <th>Register Date</th>
-          <th>수정 / 탈퇴</th>
+          <th>이메일</th>
+          <th>이름</th>
+          <th>집주소</th>
+          <th>기본 배송지</th>
+          <th>전화번호</th>
+          <th>생년월일</th>
+          <th>회원등급</th>
+          <th>회원가입 날짜</th>
+          <th>적립금</th>
+          <th>기본 배송지 번호</th>
+          <th>수정</th>
+          <th>탈퇴</th>
         </tr>
       </thead>
       <tbody>
@@ -41,11 +48,20 @@
           <tr>
             <td>${mvo.mno }</td>
             <td>${mvo.email }</td>
-            <td><a href="/member/detail?email=${mvo.email }">${mvo.nickname }</a></td>
+            <td>${mvo.name }</td>
+            <td>${mvo.home }</td>
+            <td>${mvo.addr }</td>
+            <td>${mvo.tel }</td>
+            <td>${mvo.birth }</td>
+            <td>${mvo.grade }</td>
             <td>${mvo.regd8 }</td>
+            <td>${mvo.point }</td>
+            <td>${mvo.addrno }</td>
             <td>
-              <a href="/member/modify?email=${mvo.email }" class="btn btn-warning">수정</a>
-              <a href="/member/resign?email=${mvo.email }&ses=${sesInfo.email }" class="btn btn-danger">탈퇴</a>
+              <a href="#" id="modBtn" class=""><i class="fas fa-edit"></i></a>
+            </td>
+            <td>
+              <a href="/admin/resign?mno=${mvo.mno }&pageNum=${pgvo.cri.pageNum}&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}" class=""><i class="fas fa-times"></i></a>
             </td>
           </tr>
         </c:forEach>
@@ -56,23 +72,76 @@
        <c:if test="${pgvo.prev }">
         <li class="page-item">
          <a class="page-link"
-           href="/member/list?pageNum=${pgvo.beginPagingNum - 1 }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Prev</a>
+           href="/admin/mlist?pageNum=${pgvo.beginPagingNum - 1 }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Prev</a>
         </li>
        </c:if>
        <c:forEach begin="${pgvo.beginPagingNum }" end="${pgvo.endPagingNum }" var="i">
         <li class="page-item ${pgvo.cri.pageNum == i ? 'active' : ''}">
          <a class="page-link"
-           href="/member/list?pageNum=${i }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">${i }</a>
+           href="/admin/mlist?pageNum=${i }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">${i }</a>
         </li>
        </c:forEach>
        <c:if test="${pgvo.next }">
         <li class="page-item">
          <a class="page-link"
-           href="/member/list?pageNum=${pgvo.endPagingNum + 1 }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Next</a>
+           href="/admin/mlist?pageNum=${pgvo.endPagingNum + 1 }&amount=${pgvo.cri.amount}&type=${pgvo.cri.type}&keyword=${pgvo.cri.keyword}">Next</a>
         </li>
        </c:if> 
-      </ul>
+      </ul> 
     </div>
   </div>
-</section>
+</main>
 <jsp:include page="../admin/adminfooter.jsp"></jsp:include>
+<script>
+$(function(){
+  $(document).on("click", "#modBtn", function(){
+    let parentTr = $(this).closest("tr");
+    let home = $(parentTr).find("td:nth-child(4)").text();
+    let addr = $(parentTr).find("td:nth-child(5)").text();
+    let tel = $(parentTr).find("td:nth-child(6)").text();
+    let birth = $(parentTr).find("td:nth-child(7)").text();
+    let grade = $(parentTr).find("td:nth-child(8)").text();
+    let point = $(parentTr).find("td:nth-child(10)").text();
+    let addrno = $(parentTr).find("td:nth-child(11)").text();
+    $(parentTr).find("td:nth-child(4)").html('<input type="text" name="home" class="form-control" value="'+home+'">');
+    $(parentTr).find("td:nth-child(5)").html('<input type="text" name="addr" class="form-control" value="'+addr+'">');
+    $(parentTr).find("td:nth-child(6)").html('<input type="text" name="tel" class="form-control" value="'+tel+'">');
+    $(parentTr).find("td:nth-child(7)").html('<input type="text" name="birth" class="form-control" value="'+birth+'">');
+    $(parentTr).find("td:nth-child(8)").html('<input type="text" name="grade" class="form-control" value="'+grade+'">');
+    $(parentTr).find("td:nth-child(10)").html('<input type="text" name="point" class="form-control" value="'+point+'">');
+    $(parentTr).find("td:nth-child(11)").html('<input type="text" name="addrno" class="form-control" value="'+addrno+'" disabled>');
+    let modFinBtn = '<a href="#" id="modFinBtn"><i class="fas fa-check-circle"></i></a>'
+    $(this).closest("td").prepend(modFinBtn).trigger("create");
+    $(this).remove();
+  });
+  $(document).on("click", "#modFinBtn", function(){
+    let mno = $(this).closest("tr").find("td:nth-child(1)").text();
+    let home = $("input[name=home]").val();
+    let addr = $("input[name=addr]").val();
+    let tel = $("input[name=tel]").val();
+    let birth = $("input[name=birth]").val();
+    let grade = $("input[name=grade]").val();
+    let point = $("input[name=point]").val();
+    let addrno = $("input[name=addrno]").val();
+    let memData = {mno:mno, home:home, addrno:addrno, addr:addr, tel:tel, birth:birth, grade:grade, point:point};
+    $.ajax({
+    	type: "post",
+      url: "/admin/mmodify",
+      data: JSON.stringify(memData),
+      contentType: "application/json; charset=UTF-8"
+    }).done(function(result){
+    	if(result > 0){
+    		alert("회원 정보 수정이 완료되었습니다.");
+    	} else{
+    		alert("회원 정보 수정 실패");
+    	}
+    }).fail(function(request, status, error){
+    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    }).always(function(){
+      location.replace("/admin/mlist");
+    });
+  });
+});
+</script>
+
+

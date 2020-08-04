@@ -3,16 +3,218 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminMapper">
+  <sql id="search">
+    <if test="type != null">
+      <trim prefix=" and (" suffix=") ">
+        <choose>
+          <when test="type == 'en'.toString()">
+            email like '%'||#{keyword}||'%' or
+            name like '%'||#{keyword}||'%'
+          </when>
+          <when test="type == 'e'.toString()">
+            email like '%'||#{keyword}||'%'
+          </when>
+          <when test="type == 'n'.toString()">
+            name like '%'||#{keyword}||'%'
+          </when>
+        </choose>
+      </trim>
+    </if>
+  </sql>
+  <sql id="category">
+    <if test="type != null">
+      <trim prefix="where ">
+        <choose>
+          <when test="type == '1000'.toString()">
+            catecode = 1000
+          </when>
+          <when test="type == '2000'.toString()">
+            catecode = 2000
+          </when>
+          <when test="type == '3000'.toString()">
+            catecode = 3000
+          </when>
+          <when test="type == '4000'.toString()">
+            catecode = 4000
+          </when>
+          <when test="type == '5000'.toString()">
+            catecode = 5000
+          </when>
+          <when test="type == '6000'.toString()">
+            catecode = 6000
+          </when>
+          <when test="type == '7000'.toString()">
+            catecode = 7000
+          </when>
+        </choose>
+      </trim>
+    </if>
+  </sql>
+  <select id="mList" parameterType="Criterion" resultType="MemberVO">
+    <![CDATA[
+    select rn, m.mno, m.email, m.name, m.home, m.addrno, a.addr, m.tel, m.birth, m.grade, m.regd8, m.point 
+    from (select /*+INDEX_DESC(tbl_member pk_member)*/ 
+    rownum as rn, mno, email, home, name, addrno, tel, birth, grade, regd8, point
+    from tbl_member
+    where mno > 0 and grade >= 0
+    ]]>
+    <include refid="search"/>
+    <![CDATA[
+    and rownum <= #{pageNum} * #{amount})
+    m left join tbl_address a 
+    on m.addrno = a.addrno
+    where rn > (#{pageNum} - 1) * #{amount}
+    ]]>
+  </select>
+  <select id="managerList" parameterType="Criterion" resultType="MemberVO">
+    <![CDATA[
+    select rn, mno, email, name, tel, birth, grade, regd8, point 
+    from (select
+    rownum as rn, mno, email, name, tel, birth, grade, regd8, point
+    from tbl_member
+    where mno > 0 and grade >= 90
+    ]]>
+    <include refid="search"/>
+    <![CDATA[
+    and rownum <= #{pageNum} * #{amount})
+    where rn > (#{pageNum} - 1) * #{amount}
+    order by grade desc
+    ]]>
+  </select>
+  <select id="resignList" parameterType="Criterion" resultType="MemberVO">
+    <![CDATA[
+    select * from (select /*+INDEX_DESC(tbl_member pk_member)*/ 
+    rownum as rn, mno, email, name, home, addrno, tel, birth, grade, regd8, point
+    from tbl_member
+    where mno > 0 and grade = -1
+    ]]>
+    <include refid="search"/>
+    <![CDATA[
+    and rownum <= #{pageNum} * #{amount})
+    m left join tbl_address a 
+    on m.addrno = a.addrno
+    where rn > (#{pageNum} - 1) * #{amount}
+    ]]>
+  </select>
+  <update id="modifyMember" parameterType="MemberVO">
+    update tbl_member set home=#{home}, tel=#{tel}, birth=#{birth},
+    grade=#{grade}, point=#{point} where mno=#{mno}
+  </update>
+  <update id="modifyMAddr" parameterType="java.util.HashMap">
+    update tbl_address set addr=#{addr} where addrno=#{addrno}
+  </update>
+  <update id="resignMember" parameterType="java.lang.Integer">
+    update tbl_member set grade = -1 where mno=#{mno}
+  </update>
+  <delete id="deleteMember">
+    delete from tbl_member where mno=#{mno}
+  </delete>
+  <insert id="insertTag" parameterType="java.lang.String">
+    insert into tbl_tag (tno, tname)
+    values (seq_tag_tno.nextval, #{tname})
+  </insert>
+  <select id="getTno" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select tno from tbl_tag where tname = #{tname}
+  </select>
+  <select id="selectTag" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(tno) from tbl_tag where tname = #{tname}
+  </select>
   <insert id="register" parameterType="ProductVO">
-    insert into tbl_product (pno,cateno,mno,tno,pname,price,content,img,stock,dfee,discount,custom)
-    values
-     (seq_product_pno.nextval,#{mno},#{tno},#{pname},#{price},#{content},#{img},#{stock},#{dfee},#{discount},#{custom})
+    insert into tbl_product (PNO, CATENO, TNO, PNAME, PRICE, CONTENT, IMG, STOCK, DFEE, DISCOUNT, CUSTOM)
+    values (seq_product_pno.nextval, #{cateno}, #{tno}, #{pname}, #{price}, #{content}, #{img}, #{stock}, #{dfee}, #{discount}, #{custom})
   </insert>
   <update id="modifyProduct" parameterType="ProductVO">
-    update tbl_product set rate = #{rate}, title = #{title}, content = #{content}, img = #{img}, modd8 = sysdate)
+    update tbl_product set CATENO = #{cateno}, TNO = #{tno}, PNAME = #{pname}, PRICE = #{price}, CONTENT = #{content}, IMG = #{img}, STOCK = #{stock}, DFEE = #{dfee}, DISCOUNT = #{discount}, CUSTOM = #{custom} 
     where pno = #{pno}
   </update>
   <delete id="removeProduct" parameterType="java.lang.Integer">
     delete from tbl_product where pno = #{pno}
   </delete>
+  <delete id="deleteTag">
+    DELETE FROM tbl_tag where tno = (SELECT tno from (SELECT tt.tno, tp.PNAME, tt.TNAME FROM TBL_PRODUCT tp right OUTER JOIN TBL_TAG tt ON tp.tno = tt.tno) WHERE pname is NULL)
+  </delete>
+  <select id="pList" parameterType="Criterion" resultType="ProductVO">
+    <![CDATA[
+    select * from (select /*+INDEX_DESC(tbl_product pk_product)*/ 
+    rownum as rn, pno, cateno, mno, tno, pname, price, content, img,
+    regd8, modd8, stock, dfee, readcount, sellcount, discount, custom
+    from tbl_product
+    where pno > 0
+    and rownum <= #{pageNum} * #{amount})
+    where rn > (#{pageNum} - 1) * #{amount}
+    ]]>
+  </select>
+  <select id="detailProduct" parameterType="java.lang.Integer" resultType="ProductVO">
+    select * from tbl_product where pno=#{pno}
+  </select>
+  <select id="totalMCount" parameterType="Criterion" resultType="java.lang.Integer">
+  <![CDATA[
+    select count(mno) from tbl_member where mno > 0 and grade >= 0
+  ]]>
+  <include refid="search"/>
+  </select>
+  <select id="totalResignCount" parameterType="Criterion" resultType="java.lang.Integer">
+  <![CDATA[
+    select count(mno) from tbl_member where mno > 0 and grade = -1
+  ]]>
+  <include refid="search"/>
+  </select>
+  <select id="totalPCount" parameterType="Criterion" resultType="java.lang.Integer">
+  <![CDATA[
+    select count(pno) from tbl_product where pno > 0
+  ]]>
+  </select>
+  <select id="tagList" parameterType="Criterion" resultType="TagVO">
+    select * from tbl_tag
+  </select>
+  <insert id="addCategory" parameterType="CategoryVO">
+    insert into tbl_category values(#{cateno}, #{catename}, #{catecode}, #{iconfile})
+  </insert>
+  <select id="cateList" parameterType="Criterion" resultType="CategoryVO">
+    select * from tbl_category <include refid="category"/> order by cateno
+  </select>
+  <select id="cateDetail" parameterType="java.lang.Integer"
+    resultType="CategoryVO">
+    select * from tbl_category where cateno=#{cateno}
+  </select>
+  <update id="modifyCategory" parameterType="CategoryVO">
+    update tbl_category set cateno=#{cateno}, catecode=#{catecode}, catename=#{catename}, 
+    iconfile=#{iconfile} where cateno=#{old_cateno}
+  </update>
+  <delete id="deleteCategory" parameterType="java.lang.Integer">
+    delete from tbl_category where cateno=#{cateno}
+  </delete>
+  <select id="orderCount" resultType="java.lang.Integer">
+  <![CDATA[
+    select count(ocode) from tbl_order where ocode is not null
+  ]]>
+  </select>
+  <select id="orderSale" resultType="java.lang.Integer">
+    select sum(oprice) from tbl_order
+  </select>
+  <select id="getrList" parameterType="java.util.HashMap" resultType="ReviewVO">
+    <![CDATA[
+	    select * from (select /*+INDEX_DESC(tbl_review pk_review)*/ 
+	    rownum as rn, rno, pno, rate, writer, title, content, img, regd8, modd8 
+	    from tbl_review
+	    where rno > '0' ${where}
+	    and rownum <= #{cri.pageNum} * #{cri.amount})
+	    where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+    ]]>
+  </select>
+  <select id="getOrderListStatus" parameterType="java.util.HashMap" resultType="OrderDetailVO">
+    <![CDATA[
+    select * from (select /*+INDEX_DESC(tbl_orderdetail orderdetail_index)*/ 
+    rownum as rn, odno, d.ocode, pno, rno, pname, price, qt, deliverd8, sendd8, status
+    from tbl_orderdetail d join tbl_order o on d.ocode = o.ocode where
+    ]]>
+    <if test='status != 9'>
+      status = #{status} and 
+    </if>
+    <![CDATA[
+    odno > 0
+    and rownum <= #{cri.pageNum} * #{cri.amount})
+    where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+    ]]>
+  </select>
 </mapper>
